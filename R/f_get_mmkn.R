@@ -1,9 +1,13 @@
 #' @title f_get_MMKN
-#' @description produce queuing output
-#' @source \url{GIT}
+#' @param k number of servers
+#' @param N maximum allowed in the system
+#' @param ta average time between arrivals
+#' @param ts average service time
+#' @return 'Servers:','System Capacity:','Time between arrivals:','Average service time:','Minutes in service:','Minutes in queue:','Minutes in system:'
+#' @description produce queuing output for an MMKN queuing discipline
+#' @examples f_get_MMKN(2,50,4,5)
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_mmkn.R}
 #' @export
-
-
 
 f_get_MMKN <- function(k,N,ta,ts){
 
