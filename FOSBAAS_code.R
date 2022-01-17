@@ -20,7 +20,7 @@ palette <- c('dodgerblue','grey25','mediumseagreen', 'coral',
 #-----------------------------------------------------------------
 # Creating a custom theme
 #-----------------------------------------------------------------
-require(ggplot2)
+
 graphics_theme_1 <- ggplot2::theme() +
   theme(axis.text.x  = element_text(angle = 0, size = 14,
                                     vjust = 0, color = "grey10"),
