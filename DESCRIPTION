@@ -3,7 +3,7 @@ Version: 0.1.0.9000
 Date: 2022-01-20
 Title: This is a helper package that contains all functions and data for the book "Fundamentals of Sports Business Analytics and Strategy."
 Authors@R: c(person("Justin", "Watkins", role = c("aut", "cre"),
-                     email = "watkinsjudo@gmail.com")
+                     email = "watkinsjudo@gmail.com"))
 Author: Justin Watkins [aut, cre]
 Maintainer: Justin Watkins <watkinsjudo@gmail.com>
 Depends: R (>= 3.1.0), dplyr
