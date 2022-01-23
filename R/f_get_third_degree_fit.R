@@ -1,10 +1,12 @@
-
 #' @title f_get_third_degree_fit
-#' @description Get third degree fit
-#' @source \url{GIT}
+#' @param new_var
+#' @param dist_fit
+#' @return output of third degree polynomial function
+#' @examples
+#' f_get_third_degree_fit()
+#' @description Outputs a value based on a third degree polynomial function
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_third_degree_fit.R}
 #' @export
-
-
 
 
 f_get_third_degree_fit <- function(new_var,dist_fit){

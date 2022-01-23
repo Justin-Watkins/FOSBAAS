@@ -4,11 +4,28 @@
 \alias{f_define_line}
 \title{f_define_line}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_define_line.R}
 }
 \usage{
 f_define_line(y2, y1, x2, x1, x)
 }
+\arguments{
+\item{y2}{y2 value for point slope formula}
+
+\item{y1}{y1 value for point slope formula}
+
+\item{x2}{x2 value for point slope formula}
+
+\item{x1}{x1 value for point slope formula}
+
+\item{x}{x value for line}
+}
+\value{
+Y value for defined line
+}
 \description{
-Create time sequence for observations
+Illustrative point slope formula
+}
+\examples{
+f_define_line(0,10,0,10,2)
 }

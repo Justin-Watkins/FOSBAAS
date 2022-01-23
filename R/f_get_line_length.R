@@ -1,6 +1,15 @@
 #' @title f_get_line_length
+#' @param seed A number
+#' @param n A number representing the number of returned values
+#' @param u1 A number mean value
+#' @param sd1 A number standard deviation
+#' @param u2 A number mean value
+#' @param sd2 A number standard deviation
+#' @return creates a bimodal distribution of line length
+#' @examples
+#' f_get_line_length(755,300,20,10,30,5)
 #' @description Create a data frame to simulate line length
-#' @source \url{GIT}
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_line_length.R}
 #' @export
 
 

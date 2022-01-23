@@ -4,11 +4,24 @@
 \alias{f_get_scans}
 \title{f_get_scans}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scans.R}
 }
 \usage{
 f_get_scans(new_time, zero_1, zero_2)
 }
+\arguments{
+\item{new_time}{y2 value for point slope formula}
+
+\item{zero_1}{starting point}
+
+\item{zero_2}{end point}
+}
+\value{
+Scan value
+}
 \description{
-Create time sequence for observations
+Return scans values. This function only works with fit values.
+}
+\examples{
+f_get_scans(2,0,300)
 }

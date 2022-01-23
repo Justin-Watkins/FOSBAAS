@@ -4,11 +4,20 @@
 \alias{f_add_zero}
 \title{f_add_zero}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_add_zero.R}
 }
 \usage{
 f_add_zero(number)
 }
+\arguments{
+\item{number}{A number}
+}
+\value{
+single character number with a zero prefix. It does nothing if the number is > 10
+}
 \description{
-Add a zero to a number for time conversion
+Helper function to organize numerical data on graphs
+}
+\examples{
+f_add_zero(2)
 }

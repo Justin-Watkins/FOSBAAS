@@ -1,7 +1,12 @@
-
 #' @title f_simulate_distribution
-#' @description Simulate distribution
-#' @source \url{GIT}
+#' @param observation
+#' @param rand
+#' @param seeds
+#' @return Gets Wait time
+#' @examples
+#' f_simulate_distribution()
+#' @description Simulates wait time distribution
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_simulate_distribution.R}
 #' @export
 
 

@@ -4,11 +4,24 @@
 \alias{f_calc_scans}
 \title{f_calc_scans}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_calc_scans.R}
 }
 \usage{
 f_calc_scans(x, y, j)
 }
+\arguments{
+\item{x}{`a <- y/(x^2 - 300*x + 300)`}
+
+\item{y}{`a <- y/(x^2 - 300*x + 300)`}
+
+\item{j}{`z <- a*(j^2 - 301*j + 300)`}
+}
+\value{
+value
+}
 \description{
-Build a parabolic function
+Return values from parabolic function
+}
+\examples{
+f_calc_scans(10,20,6)
 }

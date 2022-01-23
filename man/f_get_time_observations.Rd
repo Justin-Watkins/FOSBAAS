@@ -4,11 +4,22 @@
 \alias{f_get_time_observations}
 \title{f_get_time_observations}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_time_observations.R}
 }
 \usage{
 f_get_time_observations(start, end)
 }
+\arguments{
+\item{start}{A number < 24}
+
+\item{end}{A number < 24}
+}
+\value{
+Formatted military time values
+}
 \description{
-Create time sequence for observations
+Helper function to format time
+}
+\examples{
+f_get_time_observations(5,6)
 }

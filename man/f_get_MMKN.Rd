@@ -4,11 +4,26 @@
 \alias{f_get_MMKN}
 \title{f_get_MMKN}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_mmkn.R}
 }
 \usage{
 f_get_MMKN(k, N, ta, ts)
 }
+\arguments{
+\item{k}{number of servers}
+
+\item{N}{maximum allowed in the system}
+
+\item{ta}{average time between arrivals}
+
+\item{ts}{average service time}
+}
+\value{
+'Servers:','System Capacity:','Time between arrivals:','Average service time:','Minutes in service:','Minutes in queue:','Minutes in system:'
+}
 \description{
-produce queuing output
+produce queuing output for an MMKN queuing discipline
+}
+\examples{
+f_get_MMKN(2,50,4,5)
 }

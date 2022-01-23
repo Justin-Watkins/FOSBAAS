@@ -1,6 +1,15 @@
 #' @title f_get_wait_times
-#' @description Create a data frame to simulate concession waits
-#' @source \url{GIT}
+#' @param seed A number
+#' @param n A number representing the number of returned values
+#' @param time A number mean value
+#' @param rate1 A number standard deviation
+#' @param rate2 A number mean value
+#' @param rate3 A number standard deviation
+#' @return creates a wait times based on exponential distributions
+#' @examples
+#' f_get_wait_times(755,300,90,.3,.2,.1)
+#' @description Create a data frame to simulate wait times
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_wait_times.R}
 #' @export
 
 

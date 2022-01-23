@@ -1,9 +1,13 @@
 #' @title f_get_scans
-#' @description Create time sequence for observations
-#' @source \url{GIT}
+#' @param new_time y2 value for point slope formula
+#' @param zero_1 starting point
+#' @param zero_2 end point
+#' @return Scan value
+#' @examples
+#' f_get_scans(2,0,300)
+#' @description Return scans values. This function only works with fit values.
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scans.R}
 #' @export
-
-
 
 f_get_scans <- function(new_time,zero_1,zero_2){
 
@@ -17,3 +21,5 @@ f_get_scans <- function(new_time,zero_1,zero_2){
     scans <- jitter(scans,5)
     return(abs(round(scans,0)))}
 }
+
+

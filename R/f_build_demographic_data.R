@@ -1,6 +1,20 @@
 #' @title f_build_demographic_data
-#' @description combine demographic functions and build demographic data set
-#' @source \url{GIT}
+#' @param seed A number to randomize customer ids
+#' @param seed2 A number to randomize customer age
+#' @param mean_age_1 A number to set the first mean of a bimodal distribution
+#' @param mean_age_2 A number to set the second mean of a bimodal distribution
+#' @param sd_age_1 A number to set the first sd of a bimodal distribution
+#' @param sd_age_2 A number to set the first sd of a bimodal distribution
+#' @param seed3 A number to randomize distance from the park
+#' @param seed4 A number to randomize customer marital status
+#' @param seed5 A number to randomize customer ethnicity
+#' @param seed6 A number to randomize customer's number of children
+#' @param seed7 A number to randomize customer' age's household income
+#' @return creates a demographic data set representing 200,000 customers
+#' @examples
+#' f_build_demographic_data(100,200,30,60,10,10,300,400,500,600,700)
+#' @description Create a data frame to simulate demographic data
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_demographic_data.R}
 #' @export
 
 

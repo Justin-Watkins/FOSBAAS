@@ -1,6 +1,13 @@
 #' @title f_get_scan_data
-#' @description Build a parabolic function
-#' @source \url{GIT}
+#' @param x_value
+#' @param y_value
+#' @param seed random number
+#' @param sd_mod standard deviation modifier
+#' @return Return a parabola based on different parameters
+#' @examples
+#' f_get_scan_data(1,5,714,20)
+#' @description Return a data set that approximates scan data
+#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scan_data.R}
 #' @export
 
 f_get_scan_data <- function(x_value,y_value,seed,sd_mod){
@@ -20,3 +27,4 @@ f_get_scan_data <- function(x_value,y_value,seed,sd_mod){
                                   function(x) abs(rnorm(1,x,x/sd_mod))),0)
   return(scan_data)
 }
+
