@@ -4,11 +4,30 @@
 \alias{f_get_wait_times}
 \title{f_get_wait_times}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_wait_times.R}
 }
 \usage{
 f_get_wait_times(seed, n = 300, time, rate1, rate2, rate3)
 }
+\arguments{
+\item{seed}{A number}
+
+\item{n}{A number representing the number of returned values}
+
+\item{time}{A number mean value}
+
+\item{rate1}{A number standard deviation}
+
+\item{rate2}{A number mean value}
+
+\item{rate3}{A number standard deviation}
+}
+\value{
+creates a wait times based on exponential distributions
+}
 \description{
-Create a data frame to simulate concession waits
+Create a data frame to simulate wait times
+}
+\examples{
+f_get_wait_times(755,300,90,.3,.2,.1)
 }

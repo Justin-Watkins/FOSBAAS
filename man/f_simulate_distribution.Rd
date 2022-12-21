@@ -4,11 +4,17 @@
 \alias{f_simulate_distribution}
 \title{f_simulate_distribution}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_simulate_distribution.R}
 }
 \usage{
 f_simulate_distribution(observation, rand, seeds = 1)
 }
+\value{
+Gets Wait time
+}
 \description{
-Simulate distribution
+Simulates wait time distribution
+}
+\examples{
+f_simulate_distribution()
 }

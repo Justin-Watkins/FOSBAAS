@@ -4,11 +4,20 @@
 \alias{f_build_freq_table}
 \title{f_build_freq_table}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_freq_table.R}
 }
 \usage{
 f_build_freq_table(variable)
 }
+\arguments{
+\item{variable}{A vector of factors}
+}
+\value{
+creates a frequency table
+}
 \description{
-Get a frequency table
+Create a data frame of a frequency table
+}
+\examples{
+f_build_freq_table()
 }

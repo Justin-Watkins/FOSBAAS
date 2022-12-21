@@ -4,11 +4,22 @@
 \alias{f_get_scan_data}
 \title{f_get_scan_data}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scan_data.R}
 }
 \usage{
 f_get_scan_data(x_value, y_value, seed, sd_mod)
 }
+\arguments{
+\item{seed}{random number}
+
+\item{sd_mod}{standard deviation modifier}
+}
+\value{
+Return a parabola based on different parameters
+}
 \description{
-Build a parabolic function
+Return a data set that approximates scan data
+}
+\examples{
+f_get_scan_data(1,5,714,20)
 }

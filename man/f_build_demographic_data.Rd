@@ -4,7 +4,7 @@
 \alias{f_build_demographic_data}
 \title{f_build_demographic_data}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_demographic_data.R}
 }
 \usage{
 f_build_demographic_data(
@@ -21,6 +21,35 @@ f_build_demographic_data(
   seed7
 )
 }
+\arguments{
+\item{seed2}{A number to randomize customer age}
+
+\item{mean_age_1}{A number to set the first mean of a bimodal distribution}
+
+\item{mean_age_2}{A number to set the second mean of a bimodal distribution}
+
+\item{sd_age_1}{A number to set the first sd of a bimodal distribution}
+
+\item{sd_age_2}{A number to set the first sd of a bimodal distribution}
+
+\item{seed3}{A number to randomize distance from the park}
+
+\item{seed4}{A number to randomize customer marital status}
+
+\item{seed5}{A number to randomize customer ethnicity}
+
+\item{seed6}{A number to randomize customer's number of children}
+
+\item{seed7}{A number to randomize customer' age's household income}
+
+\item{seed}{A number to randomize customer ids}
+}
+\value{
+creates a demographic data set representing 200,000 customers
+}
 \description{
-combine demographic functions and build demographic data set
+Create a data frame to simulate demographic data
+}
+\examples{
+f_build_demographic_data(100,200,30,60,10,10,300,400,500,600,700)
 }

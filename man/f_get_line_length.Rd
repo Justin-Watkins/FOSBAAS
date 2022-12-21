@@ -4,11 +4,30 @@
 \alias{f_get_line_length}
 \title{f_get_line_length}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_line_length.R}
 }
 \usage{
 f_get_line_length(seed, n = 300, u1, sd1, u2, sd2)
 }
+\arguments{
+\item{seed}{A number}
+
+\item{n}{A number representing the number of returned values}
+
+\item{u1}{A number mean value}
+
+\item{sd1}{A number standard deviation}
+
+\item{u2}{A number mean value}
+
+\item{sd2}{A number standard deviation}
+}
+\value{
+creates a bimodal distribution of line length
+}
 \description{
 Create a data frame to simulate line length
+}
+\examples{
+f_get_line_length(755,300,20,10,30,5)
 }

@@ -4,11 +4,17 @@
 \alias{f_get_third_degree_fit}
 \title{f_get_third_degree_fit}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_third_degree_fit.R}
 }
 \usage{
 f_get_third_degree_fit(new_var, dist_fit)
 }
+\value{
+output of third degree polynomial function
+}
 \description{
-Get third degree fit
+Outputs a value based on a third degree polynomial function
+}
+\examples{
+f_get_third_degree_fit()
 }
