@@ -78,11 +78,6 @@ devtools::install()
 ?FOSBAAS::f_add_zero
 
 
-# https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html
-# https://usethis.r-lib.org/
-# https://orcid.org/0000-0003-0107-3861
-# http://r-pkgs.had.co.nz/man.html
-
 
 
 
