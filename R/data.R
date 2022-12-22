@@ -61,6 +61,7 @@
 #'   \item{\code{ethnicity}}{character ethnicity}
 #'   \item{\code{children}}{character children}
 #'   \item{\code{hhIncome}}{double household income scaled}
+#'   \item{\code{county}}{character state,county}
 #'}
 #' @details Demographic data purchased from third parties takes this form
 "demographic_data"

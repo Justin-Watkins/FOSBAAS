@@ -20,6 +20,7 @@ A data frame with 200000 rows and 13 variables:
   \item{\code{ethnicity}}{character ethnicity}
   \item{\code{children}}{character children}
   \item{\code{hhIncome}}{double household income scaled}
+  \item{\code{county}}{character state,county}
 }
 }
 \usage{

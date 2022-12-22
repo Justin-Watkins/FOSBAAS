@@ -16,7 +16,7 @@ devtools::document()
 # wait_times_distribution_data <- readr::read_csv("data-raw/wait_times_distribution_data.csv")
 # freq_table_data <- readr::read_csv("data-raw/freq_table_data.csv")
 # customer_data <- readr::read_csv("data-raw/customer_data.csv")
-# demographic_data <- readr::read_csv("data-raw/demographic_data.csv")
+ demographic_data <- readr::read_csv("data-raw/demographic_data.csv")
 # manifest_data <- readr::read_csv("data-raw/manifest_data.csv")
 # perceptual_data <- readr::read_csv("data-raw/perceptual_data.csv")
 # season_data <- readr::read_csv("data-raw/season_data.csv")
@@ -25,7 +25,7 @@ devtools::document()
 # aggregated_crm_data <- readr::read_csv("data-raw/aggregated_crm_data.csv")
 # fa_survey_data <- readr::read_csv("data-raw/fa_survey_data.csv")
 
-
+# usethis::use_data(demographic_data,overwrite = T)
 # usethis::use_data(customer_data,
 #                   demographic_data,
 #                   manifest_data,
@@ -72,10 +72,17 @@ devtools::install()
 
 #remove.packages("FOSBAAS")
 
-#library(FOSBAAS)
+library(FOSBAAS)
 
-?FOSBAAS::customer_data
+?FOSBAAS::demographic_data
 ?FOSBAAS::f_add_zero
+
+
+
+# install from git
+
+devtools::install_github("Justin-Watkins/FOSBAAS",force = T)
+
 
 
 
