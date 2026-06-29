@@ -3,29 +3,38 @@
 \docType{data}
 \name{perceptual_data}
 \alias{perceptual_data}
-\title{perceptual_data}
+\title{Perceptual-map survey counts}
 \format{
-A data frame with 3 rows and 10 variables:
-\describe{
-  \item{\code{Friendly}}{double count of repsonses}
-  \item{\code{Exciting}}{double count of repsonses}
-  \item{\code{Fresh}}{double double count of repsonses}
-  \item{\code{Inovative}}{double double count of repsonses}
-  \item{\code{Fun}}{double double count of repsonses}
-  \item{\code{Old}}{double double count of repsonses}
-  \item{\code{Historic}}{double double count of repsonses}
-  \item{\code{Winners}}{double double count of repsonses}
-  \item{\code{Great}}{double double count of repsonses}
-  \item{\code{Expensive}}{double double count of repsonses}
+A data frame with 3 rows (one per team) and 10 numeric attribute
+columns: \code{Friendly}, \code{Exciting}, \code{Fresh}, \code{Inovative}, \code{Fun}, \code{Old},
+\code{Historic}, \code{Winners}, \code{Great}, \code{Expensive}. Each cell is a count of
+responses. (\code{Inovative} retains the original spelling used in the data.)
 }
+\source{
+Simulated for the book. See \code{create_data/data_ch9_perceptual_data.R}.
 }
 \usage{
 perceptual_data
 }
 \description{
-Simulates Consolidated data useful for building perceptual maps
+Consolidated survey counts describing how respondents associate each of three
+teams with a set of brand attributes; the input to a perceptual map.
 }
-\details{
-Consolidated data take from a survey
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
 }
+\concept{datasets}
 \keyword{datasets}

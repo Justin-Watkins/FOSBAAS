@@ -3,23 +3,44 @@
 \docType{data}
 \name{scan_data}
 \alias{scan_data}
-\title{scan_data}
+\title{Gate-scan observations}
 \format{
 A data frame with 900 rows and 4 variables:
 \describe{
-  \item{\code{observations}}{double ordered observations}
-  \item{\code{scans}}{double count of customer scans}
-  \item{\code{action_time}}{double time of observation}
-  \item{\code{date}}{character date of observation}
+\item{observations}{numeric; ordered observation index.}
+\item{scans}{numeric; number of customer scans in that minute.}
+\item{action_time}{\code{hms}; time of the observation.}
+\item{date}{character; date of the observation.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch10_scan_data.R}.
 }
 \usage{
 scan_data
 }
 \description{
-Replicates data periodically captured at and entry gate
+Per-minute counts of fans scanning in at an entry gate over three evenings,
+as if recorded by hand with a stopwatch.
 }
 \details{
-This data replicates data captured by hand and a stopwatch at a gate
+Three 300-minute sessions stacked together; see \code{\link[=f_get_scan_data]{f_get_scan_data()}}.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

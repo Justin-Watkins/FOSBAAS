@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_calc_scans.R
 \name{f_calc_scans}
 \alias{f_calc_scans}
-\title{f_calc_scans}
+\title{Parabolic scan-count curve}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_calc_scans.R}
 }
@@ -10,18 +10,38 @@
 f_calc_scans(x, y, j)
 }
 \arguments{
-\item{x}{`a <- y/(x^2 - 300*x + 300)`}
+\item{x}{Location of the parabola's far root (controls its width); the curve
+is scaled so that it has roots near \code{0} and near \code{x}.}
 
-\item{y}{`a <- y/(x^2 - 300*x + 300)`}
+\item{y}{Peak height of the curve.}
 
-\item{j}{`z <- a*(j^2 - 301*j + 300)`}
+\item{j}{The point (e.g. minute index) at which to evaluate the curve.}
 }
 \value{
-value
+A numeric scan count at point \code{j}.
 }
 \description{
-Return values from parabolic function
+Evaluates the parabola used to shape the gate \link{scan_data}: a curve that rises
+to a peak and falls again, modelling the rush of fans arriving before a game.
+}
+\details{
+Internally \verb{a = y / (x^2 - 300x + 300)} scales the parabola
+\verb{a * (j^2 - 301j + 300)}.
 }
 \examples{
-f_calc_scans(10,20,6)
+f_calc_scans(x = 230, y = 110, j = 150)
+
 }
+\seealso{
+\code{\link[=f_get_scan_data]{f_get_scan_data()}}
+
+Other operations: 
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

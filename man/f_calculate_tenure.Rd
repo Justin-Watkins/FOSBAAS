@@ -2,13 +2,47 @@
 % Please edit documentation in R/f_calculate_tenure.R
 \name{f_calculate_tenure}
 \alias{f_calculate_tenure}
-\title{f_calculate_tenure}
+\title{Simulate account tenure in years}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_calculate_tenure.R}
 }
 \usage{
 f_calculate_tenure(corporate, planType, distance, avgDist)
 }
-\description{
-Assign a tenure amount in years
+\arguments{
+\item{corporate}{Account type: \code{"c"} (corporate) or \code{"i"} (individual).}
+
+\item{planType}{Plan type: \code{"f"} (full season) or \code{"p"} (partial).}
+
+\item{distance}{Distance from the venue, in miles.}
+
+\item{avgDist}{Average distance across all accounts, used as the near/far
+threshold.}
 }
+\value{
+A single non-negative whole number of years.
+}
+\description{
+Draws how many years an account has held season tickets. Corporate accounts,
+full-season plans and customers who live close to the venue tend to have
+longer tenures. Designed to be called row-wise when building lead-scoring
+data with \code{\link[=f_create_lead_scoring_data]{f_create_lead_scoring_data()}}.
+}
+\details{
+Set the seed once in the caller for reproducibility.
+}
+\examples{
+set.seed(1)
+f_calculate_tenure(corporate = "c", planType = "f",
+                   distance = 10, avgDist = 25)
+
+}
+\seealso{
+Other lead_scoring: 
+\code{\link{f_assign_renewal}()},
+\code{\link{f_calculate_spend}()},
+\code{\link{f_calculate_ticket_use}()},
+\code{\link{f_create_lead_scoring_data}()},
+\code{\link{f_renewal_assignment}()}
+}
+\concept{lead_scoring}

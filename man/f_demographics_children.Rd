@@ -2,13 +2,45 @@
 % Please edit documentation in R/f_demographics_children.R
 \name{f_demographics_children}
 \alias{f_demographics_children}
-\title{f_demographics_children}
+\title{Simulate whether one customer has children}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_demographics_children.R}
 }
 \usage{
-f_demographics_children(seed, married, age)
+f_demographics_children(married, age)
+}
+\arguments{
+\item{married}{Marital status, \code{"m"} (married) or \code{"s"} (single).}
+
+\item{age}{Customer age in years.}
+}
+\value{
+A single character value: \code{"y"} (has children) or \code{"n"}.
 }
 \description{
-Determine the ethnicity of the fan
+Draws a yes/no children flag for a single customer, with probabilities that
+depend on marital status and age. Designed to be called row-wise when
+building \link{demographic_data}.
 }
+\section{Bug fix}{
+
+The unused \code{seed} argument was removed; set the seed once in the caller.
+}
+
+\examples{
+set.seed(600)
+f_demographics_children(married = "m", age = 38)
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

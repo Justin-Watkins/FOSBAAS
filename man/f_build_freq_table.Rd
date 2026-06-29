@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_build_freq_table.R
 \name{f_build_freq_table}
 \alias{f_build_freq_table}
-\title{f_build_freq_table}
+\title{Build a frequency table with probabilities}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_freq_table.R}
 }
@@ -10,14 +10,33 @@
 f_build_freq_table(variable)
 }
 \arguments{
-\item{variable}{A vector of factors}
+\item{variable}{A vector whose unique values can be coerced to numbers
+(numeric, or a factor/character of numeric labels).}
 }
 \value{
-creates a frequency table
+A data frame with one row per distinct value and the columns:
+\describe{
+\item{\code{variable}}{the distinct value, as a number;}
+\item{\code{Freq}}{the number of times it occurs;}
+\item{\code{prob}}{its relative frequency (\code{Freq} divided by the total),
+so the column sums to 1.}
+}
 }
 \description{
-Create a data frame of a frequency table
+Tabulates a numeric vector and returns the count and relative frequency
+(probability) of each distinct value. It is used in the operations chapter to
+turn raw observation counts into an empirical probability distribution.
 }
 \examples{
-f_build_freq_table()
+set.seed(1)
+f_build_freq_table(sample(0:5, size = 100, replace = TRUE))
+
 }
+\seealso{
+Other utilities: 
+\code{\link{f_add_zero}()},
+\code{\link{f_define_line}()},
+\code{\link{f_get_miles_NV}()},
+\code{\link{f_get_time_observations}()}
+}
+\concept{utilities}

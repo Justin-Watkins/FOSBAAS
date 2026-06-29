@@ -2,13 +2,48 @@
 % Please edit documentation in R/f_demographics_married.R
 \name{f_demographics_married}
 \alias{f_demographics_married}
-\title{f_demographics_married}
+\title{Simulate marital status for one customer}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_demographics_married.R}
 }
 \usage{
-f_demographics_married(seed, gender, age)
+f_demographics_married(gender, age)
+}
+\arguments{
+\item{gender}{Customer gender, \code{"m"} or \code{"f"}.}
+
+\item{age}{Customer age in years.}
+}
+\value{
+A single character value: \code{"m"} (married) or \code{"s"} (single).
 }
 \description{
-Determine if the customer is married
+Draws a marital status ("married" or "single") for a single customer, with
+probabilities that depend on gender and age. Designed to be called row-wise
+(e.g. via \code{mapply()}) when building \link{demographic_data}.
 }
+\section{Bug fix}{
+
+The old version called \code{set.seed(seed)} \emph{inside} the function. Because it was
+applied row-by-row with one shared seed, every call reset the generator and
+the draws were not independent. The \code{seed} argument has been removed; the
+caller should set the seed once before iterating.
+}
+
+\examples{
+set.seed(400)
+f_demographics_married(gender = "f", age = 52)
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

@@ -2,13 +2,37 @@
 % Please edit documentation in R/f_constrain_sales.R
 \name{f_constrain_sales}
 \alias{f_constrain_sales}
-\title{f_constrain_sales}
+\title{Cap ticket sales at stadium capacity}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_constrain_sales.R}
 }
 \usage{
 f_constrain_sales(sales)
 }
-\description{
-Constrain demand to fit stadium size
+\arguments{
+\item{sales}{A numeric ticket-sales figure.}
 }
+\value{
+\code{sales} unchanged when it is at or below 45,000, otherwise 45,000.
+}
+\description{
+Clamps a ticket-sales figure to the venue's capacity of 45,000 seats, so
+simulated demand never exceeds the number of seats available.
+}
+\examples{
+f_constrain_sales(38000)
+f_constrain_sales(51000)
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

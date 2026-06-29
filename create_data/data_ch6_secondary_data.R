@@ -1,11 +1,22 @@
 #-----------------------------------------------------------------
-# secondary_data data set
+# secondary_data  (used in Chapter 6)
 #
-# This data set approximates sales on a secondary market
-# You need the ticket activity data to create the sales file
+# Approximates secondary-market (resale) sales, producing
+# `FOSBAAS::secondary_data`. It reads the per-game ticket-activity files,
+# attaches the original (primary) price from the manifest, clusters games by
+# attendance, samples ~12% of tickets as resales, and prices each resale with a
+# cluster-driven coefficient. This is a bespoke data pipeline with no
+# package-function equivalent, so the logic is preserved as-is.
+#
+# Prerequisites: the per-game files in ticket_activity/ and the raw data-raw/
+# CSVs (manifest_data, season_data). Adjust the paths below to your checkout.
+#
+# Output schema: seatID, custID, ticketType, gameID, tickets, priceKey, price,
+# orderedCluster, secondayrPrice.
 #-----------------------------------------------------------------
-setwd("C:/package/FOSBAAS/ticket_activity")
 library(readr)
+library(dplyr)
+library(tidyr)
 #-----------------------------------------------------------------
 # Read and write to file
 #-----------------------------------------------------------------

@@ -1,0 +1,93 @@
+---
+title: "Getting started with FOSBAAS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with FOSBAAS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(FOSBAAS)
+```
+
+`FOSBAAS` is the companion package for the book *Fundamentals of Sports Business
+Analytics and Strategy*. It provides the example data sets used in the book and
+the simulation functions that built them. This vignette gives a short tour.
+
+## Bundled data
+
+Every data set is available by name once the package is attached. For example,
+`season_data` holds three seasons of home games and simulated ticket sales:
+
+```{r}
+str(season_data)
+head(season_data[, c("date", "team", "promotion", "ticketSales")])
+```
+
+The renewal panel, `customer_renewals`, is the basis for the lead-scoring
+chapter:
+
+```{r}
+head(customer_renewals)
+table(customer_renewals$renewed)
+```
+
+## Simulating a season
+
+`f_build_season()` reproduces a season from a set of seeds and demand
+parameters. The opponents, schedule, promotions and per-game attendance
+multipliers are all simulated:
+
+```{r}
+season <- f_build_season(seed1 = 3000, season_year = 2024, seed2 = 714,
+                         num_games = 81, seed3 = 366, num_bbh = 5,
+                         num_con = 3, num_oth = 5, seed4 = 309, seed5 = 25,
+                         mean_sales = 29000, sd_sales = 3500)
+
+dim(season)
+head(season[, c("gameNumber", "team", "dayOfWeek", "promotion", "ticketSales")])
+```
+
+Sales are capped at the venue capacity of 45,000:
+
+```{r}
+max(season$ticketSales)
+```
+
+## Operations: a queueing model
+
+`f_get_MMKN()` solves an M/M/k/N queue — `k` servers and a finite capacity `N`
+— and returns the standard performance measures. Here are two servers with a
+capacity of five customers:
+
+```{r}
+f_get_MMKN(k = 2, N = 5, ta = 10, ts = 8)
+```
+
+We can also simulate the raw concession wait times that motivate such a model:
+
+```{r}
+wait <- f_get_wait_times(seed = 755, n = 300, rate1 = .03,
+                         rate2 = .06, rate3 = .15)
+summary(wait$totalTime)
+```
+
+## A small utility
+
+Many helpers are tiny building blocks. `f_build_freq_table()` turns a vector of
+observations into an empirical probability distribution:
+
+```{r}
+set.seed(1)
+f_build_freq_table(sample(0:5, size = 200, replace = TRUE))
+```
+
+## Where to go next
+
+- `?FOSBAAS` lists the function families and data sets.
+- Each function's help page documents its parameters and shows a runnable
+  example, e.g. `?f_build_season` or `?f_create_lead_scoring_data`.
+- The `create_data/` directory in the source repository shows how each bundled
+  data set was assembled from these functions.

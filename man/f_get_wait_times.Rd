@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_get_wait_times.R
 \name{f_get_wait_times}
 \alias{f_get_wait_times}
-\title{f_get_wait_times}
+\title{Simulate concession-stand wait times}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_wait_times.R}
 }
@@ -10,24 +10,48 @@
 f_get_wait_times(seed, n = 300, time, rate1, rate2, rate3)
 }
 \arguments{
-\item{seed}{A number}
+\item{seed}{Integer seed; makes the wait times reproducible.}
 
-\item{n}{A number representing the number of returned values}
+\item{n}{Number of transactions to simulate; defaults to \code{300}.}
 
-\item{time}{A number mean value}
+\item{time}{Reserved for backward compatibility; currently ignored.}
 
-\item{rate1}{A number standard deviation}
+\item{rate1}{Rate of the exponential order-time distribution.}
 
-\item{rate2}{A number mean value}
+\item{rate2}{Rate of the exponential payment-time distribution.}
 
-\item{rate3}{A number standard deviation}
+\item{rate3}{Rate of the exponential fulfilment-time distribution.}
 }
 \value{
-creates a wait times based on exponential distributions
+A data frame with \code{n} rows and the columns \code{transaction},
+\code{orderTimes}, \code{paymentTimes}, \code{fulfillTimes} and \code{totalTime}, each rounded
+to whole seconds.
 }
 \description{
-Create a data frame to simulate wait times
+Builds a table of transaction wait times by decomposing each transaction into
+three exponentially distributed stages -- ordering, paying and fulfilment --
+and summing them. This is the building block behind \link{wait_times_data}.
+}
+\details{
+A smaller \code{rate} means a longer average time for that stage (the mean of an
+exponential is \code{1 / rate}).
 }
 \examples{
-f_get_wait_times(755,300,90,.3,.2,.1)
+wt <- f_get_wait_times(seed = 755, n = 300, rate1 = .03,
+                       rate2 = .06, rate3 = .15)
+head(wt)
+
 }
+\seealso{
+\link{wait_times_data}
+
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

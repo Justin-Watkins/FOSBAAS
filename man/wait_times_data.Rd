@@ -3,24 +3,46 @@
 \docType{data}
 \name{wait_times_data}
 \alias{wait_times_data}
-\title{wait_times_data}
+\title{Concession-stand wait times}
 \format{
 A data frame with 900 rows and 5 variables:
 \describe{
-  \item{\code{transaction}}{double Count of transactions}
-  \item{\code{orderTimes}}{double order time in seconds}
-  \item{\code{paymentTimes}}{double payment time in seconds}
-  \item{\code{fulfillTimes}}{double fulfillment time in secongs}
-  \item{\code{totalTime}}{double totla time in seconds}
+\item{transaction}{numeric; transaction index.}
+\item{orderTimes}{numeric; ordering time, in seconds.}
+\item{paymentTimes}{numeric; payment time, in seconds.}
+\item{fulfillTimes}{numeric; fulfilment time, in seconds.}
+\item{totalTime}{numeric; total time, in seconds.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch10_wait_times_data.R}.
 }
 \usage{
 wait_times_data
 }
 \description{
-Decomposed data captured at a concession stands
+Transaction-level wait times at a concession stand, decomposed into ordering,
+payment and fulfilment stages.
 }
 \details{
-Replicates data gathered through direct observation
+Three 300-transaction sessions stacked together; see
+\code{\link[=f_get_wait_times]{f_get_wait_times()}}.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

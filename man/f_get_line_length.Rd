@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_get_line_length.R
 \name{f_get_line_length}
 \alias{f_get_line_length}
-\title{f_get_line_length}
+\title{Simulate concession-line lengths}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_line_length.R}
 }
@@ -10,24 +10,46 @@
 f_get_line_length(seed, n = 300, u1, sd1, u2, sd2)
 }
 \arguments{
-\item{seed}{A number}
+\item{seed}{Integer seed; makes the lengths reproducible.}
 
-\item{n}{A number representing the number of returned values}
+\item{n}{Number of observations to return; defaults to \code{300}.}
 
-\item{u1}{A number mean value}
+\item{u1, sd1}{Mean and standard deviation of the busy (longer-line) mode.}
 
-\item{sd1}{A number standard deviation}
-
-\item{u2}{A number mean value}
-
-\item{sd2}{A number standard deviation}
+\item{u2, sd2}{Mean and standard deviation of the quiet (shorter-line) mode.}
 }
 \value{
-creates a bimodal distribution of line length
+A data frame with \code{n} rows and the columns \code{observation} (\code{1:n}) and
+\code{lineLength} (non-negative whole numbers).
 }
 \description{
-Create a data frame to simulate line length
+Draws a bimodal distribution of line lengths -- a busy mode and a quiet mode
+-- of the kind observed at a concession stand over the course of a game.
 }
+\details{
+About 60\% of observations come from the first mode and 40\% from the second.
+}
+\section{Bug fix}{
+
+The function now returns the bimodal sample it draws. The previous version
+computed that sample, discarded it, and returned an unrelated fixed pattern,
+leaving the \code{u1}/\code{sd1}/\code{u2}/\code{sd2} arguments with no effect.
+}
+
 \examples{
-f_get_line_length(755,300,20,10,30,5)
+lines <- f_get_line_length(seed = 755, n = 300, u1 = 20, sd1 = 10,
+                           u2 = 30, sd2 = 5)
+head(lines)
+
 }
+\seealso{
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

@@ -1,190 +1,270 @@
-#' @title aggregated_crm_data
-#' @description Replicates aggregated call data
-#' @format A data frame with 5000 rows and 3 variables:
+#' Aggregated CRM call and revenue data
+#'
+#' A small, pre-aggregated CRM extract summarising sales-rep call activity and
+#' the revenue it generated. Used in the project-framing chapter.
+#'
+#' @format A data frame with 5,000 rows and 3 variables:
 #' \describe{
-#'   \item{\code{repID}}{character rep responsible for calls}
-#'   \item{\code{call}}{double number of calls}
-#'   \item{\code{revenue}}{double revenue generated}
-#'}
-#' @details This data would be consolidated from raw CRM data
+#'   \item{repID}{character; the sales rep responsible for the calls.}
+#'   \item{call}{numeric; number of calls.}
+#'   \item{revenue}{numeric; revenue generated.}
+#' }
+#' @details This is the kind of table you would build by rolling up raw CRM
+#'   activity to the rep level.
+#' @source Simulated for the book. See `create_data/data_ch4_aggregated_crm_data.R`.
+#' @family datasets
 "aggregated_crm_data"
 
-#' @title scan_data
-#' @description Replicates data periodically captured at and entry gate
-#' @format A data frame with 900 rows and 4 variables:
+#' Customer identity table
+#'
+#' A minimal ticketing-database customer list: an account ID and a name.
+#'
+#' @format A data frame with 200,000 rows and 2 variables:
 #' \describe{
-#'   \item{\code{observations}}{double ordered observations}
-#'   \item{\code{scans}}{double count of customer scans}
-#'   \item{\code{action_time}}{double time of observation}
-#'   \item{\code{date}}{character date of observation}
-#'}
-#' @details This data replicates data captured by hand and a stopwatch at a gate
-"scan_data"
-
-#' @title wait_times_data
-#' @description Decomposed data captured at a concession stands
-#' @format A data frame with 900 rows and 5 variables:
-#' \describe{
-#'   \item{\code{transaction}}{double Count of transactions}
-#'   \item{\code{orderTimes}}{double order time in seconds}
-#'   \item{\code{paymentTimes}}{double payment time in seconds}
-#'   \item{\code{fulfillTimes}}{double fulfillment time in secongs}
-#'   \item{\code{totalTime}}{double totla time in seconds}
-#'}
-#' @details Replicates data gathered through direct observation
-"wait_times_data"
-
-#' @title customer_data
-#' @description database of customer id and names
-#' @format A data frame with 200000 rows and 2 variables:
-#' \describe{
-#'   \item{\code{custID}}{character customer id}
-#'   \item{\code{name}}{character customner name}
-#'}
-#' @details Replicates customer data found in a ticketing database
+#'   \item{custID}{character; customer ID.}
+#'   \item{name}{character; customer full name.}
+#' }
+#' @details Mirrors the customer table you would find in a ticketing system.
+#' @source Simulated with [f_build_customer_ids_names()].
+#' @family datasets
 "customer_data"
 
-#' @title demographic_data
-#' @description Replicates demographic information purchased on customers
-#' @format A data frame with 200000 rows and 13 variables:
+#' Customer demographic data
+#'
+#' Third-party demographic attributes appended to the customer base, of the kind
+#' a club might purchase to enrich its ticketing records.
+#'
+#' @format A data frame with 200,000 rows and 14 variables:
 #' \describe{
-#'   \item{\code{custID}}{character Id from ticketing database}
-#'   \item{\code{nameF}}{character First name}
-#'   \item{\code{nameL}}{character Last name}
-#'   \item{\code{nameFull}}{character Full name}
-#'   \item{\code{gender}}{character gender}
-#'   \item{\code{age}}{double age}
-#'   \item{\code{latitude}}{double geographic latitude}
-#'   \item{\code{longitude}}{double geographic longitude}
-#'   \item{\code{distance}}{double distance from arena}
-#'   \item{\code{maritalStatus}}{character married}
-#'   \item{\code{ethnicity}}{character ethnicity}
-#'   \item{\code{children}}{character children}
-#'   \item{\code{hhIncome}}{double household income scaled}
-#'   \item{\code{county}}{character state,county}
-#'}
-#' @details Demographic data purchased from third parties takes this form
+#'   \item{custID}{character; ID from the ticketing database.}
+#'   \item{nameF}{character; first name.}
+#'   \item{nameL}{character; last name.}
+#'   \item{nameFull}{character; full name.}
+#'   \item{gender}{character; `"m"` or `"f"`.}
+#'   \item{age}{numeric; age in years.}
+#'   \item{latitude}{numeric; geographic latitude.}
+#'   \item{longitude}{numeric; geographic longitude.}
+#'   \item{distance}{numeric; distance from the venue, in miles.}
+#'   \item{maritalStatus}{character; `"m"` (married) or `"s"` (single).}
+#'   \item{ethnicity}{character; ethnicity code (`"w"`, `"aa"`, `"h"`, `"a"`).}
+#'   \item{children}{character; `"y"` or `"n"`.}
+#'   \item{hhIncome}{numeric; household income on a scaled axis.}
+#'   \item{county}{character; `"state,county"` derived from the coordinates.}
+#' }
+#' @details The simulation columns are produced by [f_build_demographic_data()];
+#'   the `county` column is appended from the coordinates during data assembly.
+#' @source Simulated for the book. See `create_data/data_ch5_ch7_demographic_data.R`.
+#' @family datasets
 "demographic_data"
 
-#' @title manifest_data
-#' @description Data to simulate manifest data from a ticketing system
-#' @format A data frame with 44705 rows and 8 variables:
+#' Factor-analysis survey responses
+#'
+#' Simulated survey data designed for a factor-analysis example: respondents
+#' rate how important a list of game-day activities is to them.
+#'
+#' @format A data frame with 10,000 rows and 26 variables: `ReasonForAttending`
+#'   (character) plus 25 numeric activity ratings, each scored 0-10:
 #' \describe{
-#'   \item{\code{seatID}}{double unique id of seat}
-#'   \item{\code{section}}{double section id}
-#'   \item{\code{sectionNumber}}{double section number}
-#'   \item{\code{rowNumber}}{double row number}
-#'   \item{\code{seatNumber}}{double seat number}
-#'   \item{\code{seasonPrice}}{double current season price}
-#'   \item{\code{groupPrice}}{double current group price}
-#'   \item{\code{singlePrice}}{double single game price}
-#'}
-#' @details This data has been transformed and won't typically look like this
+#'   \item{ReasonForAttending}{character; the respondent's stated reason for attending.}
+#'   \item{Socialize, Tailgate, TakeSelfies, PostToSocialMedia, SeeFriends}{numeric ratings.}
+#'   \item{VisitKidAttractions, MeetMascot, SnacksForKids, KidsRunBases, KidsSlide}{numeric ratings.}
+#'   \item{GetDinner, EatParkFood, SampleFood, GetDrinks, DrinkBeer}{numeric ratings.}
+#'   \item{BuyGear, TourThePark, VisitAttractions, WatchPregameShow, SeeTheChicken}{numeric ratings.}
+#'   \item{UpgradeSeats, GetAutographs, WatchGame, SeePractice, MeetPlayers}{numeric ratings.}
+#' }
+#' @details Respondents were asked to rate each activity from 0 to 10.
+#' @source Simulated for the book. See `create_data/data_ch5_fa_survey_data.R`.
+#' @family datasets
+"fa_survey_data"
+
+#' Frequency table of gate-scan observations
+#'
+#' An empirical frequency distribution of per-minute gate-scan counts, used in
+#' the operations chapter to illustrate building a probability distribution.
+#'
+#' @format A data frame with 161 rows and 3 variables:
+#' \describe{
+#'   \item{variable}{numeric; the observed scan count.}
+#'   \item{Freq}{numeric; how often that count occurred.}
+#'   \item{prob}{numeric; relative frequency (sums to 1).}
+#' }
+#' @details The shape produced by [f_build_freq_table()] applied to scan counts.
+#' @source Simulated for the book. See `create_data/data_ch10_scan_data.R`.
+#' @family datasets
+"freq_table_data"
+
+#' Binned frequency table of service times
+#'
+#' A binned empirical distribution of concession service times, used alongside
+#' [freq_table_data] in the operations chapter.
+#'
+#' @format A data frame with 23 rows and 3 variables:
+#' \describe{
+#'   \item{bin}{numeric; bin index.}
+#'   \item{mean_seconds}{numeric; mean service time (seconds) in the bin.}
+#'   \item{prob}{numeric; relative frequency of the bin (sums to 1).}
+#' }
+#' @source Simulated for the book. See `create_data/data_ch10_wait_times_data.R`.
+#' @family datasets
+"freq_table_data_bin"
+
+#' Seating-manifest and pricing data
+#'
+#' A seating manifest for the venue with the price of each seat under three
+#' selling models.
+#'
+#' @format A data frame with 44,705 rows and 8 variables:
+#' \describe{
+#'   \item{seatID}{numeric; unique seat ID.}
+#'   \item{section}{numeric; section ID.}
+#'   \item{sectionNumber}{numeric; section number.}
+#'   \item{rowNumber}{numeric; row number.}
+#'   \item{seatNumber}{numeric; seat number.}
+#'   \item{seasonPrice}{numeric; current season-ticket price.}
+#'   \item{groupPrice}{numeric; current group price.}
+#'   \item{singlePrice}{numeric; single-game price.}
+#' }
+#' @details A transformed view of seating data; real manifests rarely look this
+#'   tidy.
+#' @source Simulated for the book. See `create_data/data_ch7_manifest_data.R`.
+#' @family datasets
 "manifest_data"
 
-#' @title perceptual_data
-#' @description Simulates Consolidated data useful for building perceptual maps
-#' @format A data frame with 3 rows and 10 variables:
-#' \describe{
-#'   \item{\code{Friendly}}{double count of repsonses}
-#'   \item{\code{Exciting}}{double count of repsonses}
-#'   \item{\code{Fresh}}{double double count of repsonses}
-#'   \item{\code{Inovative}}{double double count of repsonses}
-#'   \item{\code{Fun}}{double double count of repsonses}
-#'   \item{\code{Old}}{double double count of repsonses}
-#'   \item{\code{Historic}}{double double count of repsonses}
-#'   \item{\code{Winners}}{double double count of repsonses}
-#'   \item{\code{Great}}{double double count of repsonses}
-#'   \item{\code{Expensive}}{double double count of repsonses}
-#'}
-#' @details Consolidated data take from a survey
+#' Perceptual-map survey counts
+#'
+#' Consolidated survey counts describing how respondents associate each of three
+#' teams with a set of brand attributes; the input to a perceptual map.
+#'
+#' @format A data frame with 3 rows (one per team) and 10 numeric attribute
+#'   columns: `Friendly`, `Exciting`, `Fresh`, `Inovative`, `Fun`, `Old`,
+#'   `Historic`, `Winners`, `Great`, `Expensive`. Each cell is a count of
+#'   responses. (`Inovative` retains the original spelling used in the data.)
+#' @source Simulated for the book. See `create_data/data_ch9_perceptual_data.R`.
+#' @family datasets
 "perceptual_data"
 
-#' @title season_data
-#' @description Simulates data aggregated for schedule comparisons
+#' Gate-scan observations
+#'
+#' Per-minute counts of fans scanning in at an entry gate over three evenings,
+#' as if recorded by hand with a stopwatch.
+#'
+#' @format A data frame with 900 rows and 4 variables:
+#' \describe{
+#'   \item{observations}{numeric; ordered observation index.}
+#'   \item{scans}{numeric; number of customer scans in that minute.}
+#'   \item{action_time}{`hms`; time of the observation.}
+#'   \item{date}{character; date of the observation.}
+#' }
+#' @details Three 300-minute sessions stacked together; see [f_get_scan_data()].
+#' @source Simulated for the book. See `create_data/data_ch10_scan_data.R`.
+#' @family datasets
+"scan_data"
+
+#' Simulated season schedule and sales
+#'
+#' Three seasons of home games with schedule attributes and simulated ticket
+#' sales, aggregated for schedule and promotion analysis.
+#'
 #' @format A data frame with 243 rows and 12 variables:
 #' \describe{
-#'   \item{\code{gameNumber}}{double game order}
-#'   \item{\code{team}}{character away team}
-#'   \item{\code{date}}{double game date}
-#'   \item{\code{dayOfWeek}}{character day of the week}
-#'   \item{\code{month}}{character month of event}
-#'   \item{\code{weekEnd}}{logical was it a weekend}
-#'   \item{\code{schoolInOut}}{logical were children in school}
-#'   \item{\code{daysSinceLastGame}}{double days since last game was played}
-#'   \item{\code{openingDay}}{logical is it opening day}
-#'   \item{\code{promotion}}{character was there a promotion}
-#'   \item{\code{ticketSales}}{double total tickets sold}
-#'   \item{\code{season}}{double year of season}
-#'}
-#' @details This data would be aggregated to perform regression analysis on schedules
+#'   \item{gameNumber}{numeric; game order within the season.}
+#'   \item{team}{character; opponent abbreviation.}
+#'   \item{date}{Date; game date.}
+#'   \item{dayOfWeek}{character; abbreviated weekday, e.g. `"Sun"`.}
+#'   \item{month}{character; abbreviated month, e.g. `"Mar"`.}
+#'   \item{weekEnd}{logical; was it a weekend game?}
+#'   \item{schoolInOut}{logical; were children out of school?}
+#'   \item{daysSinceLastGame}{numeric; days since the previous home game.}
+#'   \item{openingDay}{logical; was it opening day?}
+#'   \item{promotion}{character; promotion type or `"none"`.}
+#'   \item{ticketSales}{numeric; total tickets sold (capped at venue capacity).}
+#'   \item{season}{numeric; season year.}
+#' }
+#' @details The kind of table you would aggregate to run a regression on a
+#'   schedule. See [f_build_season()].
+#' @source Simulated for the book. See `create_data/data_ch3_ch6_ch8_season_data.R`.
+#' @family datasets
 "season_data"
 
-#' @title secondary_data
-#' @description Simulates processed data from secondary market sales
-#' @format A data frame with 853444 rows and 9 variables:
+#' Secondary-market ticket sales
+#'
+#' Processed secondary-market (resale) transactions, joining each sold seat to
+#' its original price and the price paid on the secondary market.
+#'
+#' @format A data frame with 853,444 rows and 9 variables:
 #' \describe{
-#'   \item{\code{seatID}}{double manifest id of the seat}
-#'   \item{\code{custID}}{character customer who purchased the tickets}
-#'   \item{\code{ticketType}}{character single, season, group}
-#'   \item{\code{gameID}}{double id of game purchased}
-#'   \item{\code{tickets}}{double number of tickets purchased}
-#'   \item{\code{priceKey}}{character seat and ticket type to match price}
-#'   \item{\code{price}}{double original price of ticket}
-#'   \item{\code{orderedCluster}}{double clustered ticket spend}
-#'   \item{\code{secondayrPrice}}{double Price paid on secondary market}
-#'}
-#' @details It may be impossible to obtain this data
+#'   \item{seatID}{numeric; manifest ID of the seat.}
+#'   \item{custID}{character; purchasing customer.}
+#'   \item{ticketType}{character; `"si"` (single), `"se"` (season) or `"gr"` (group).}
+#'   \item{gameID}{numeric; ID of the game.}
+#'   \item{tickets}{numeric; number of tickets in the transaction.}
+#'   \item{priceKey}{character; seat-and-type key used to look up price.}
+#'   \item{price}{numeric; original (primary) ticket price.}
+#'   \item{orderedCluster}{numeric; clustered spend band.}
+#'   \item{secondayrPrice}{numeric; price paid on the secondary market. (The
+#'     column name retains its original spelling.)}
+#' }
+#' @details In practice this data can be hard or impossible to obtain.
+#' @source Simulated for the book. See `create_data/data_ch6_secondary_data.R`.
+#' @family datasets
 "secondary_data"
 
-#' @title customer_renewals
-#' @description Simulates data for calculating renewal likelihood
-#' @format A data frame with 13706 rows and 10 variables:
+#' Season-ticket renewal data
+#'
+#' Account-level features for season-ticket holders together with whether they
+#' renewed, used for lead-scoring and renewal-likelihood models.
+#'
+#' @format A data frame with 13,706 rows and 10 variables:
 #' \describe{
-#'   \item{\code{accountID}}{character customer account id}
-#'   \item{\code{corporate}}{character is it a corporation}
-#'   \item{\code{season}}{double season id}
-#'   \item{\code{planType}}{character type of ticket purchased}
-#'   \item{\code{ticketUsage}}{double percentage of tickets used}
-#'   \item{\code{tenure}}{double years as a customer}
-#'   \item{\code{spend}}{double amount spend to tickets}
-#'   \item{\code{tickets}}{double number of tickets purchased}
-#'   \item{\code{distance}}{double distance from arena}
-#'   \item{\code{renewed}}{character did the customer renew their seats}
-#'}
-#' @details This data would be transformed from many sources
+#'   \item{accountID}{character; customer account ID.}
+#'   \item{corporate}{character; `"c"` (corporate) or `"i"` (individual).}
+#'   \item{season}{numeric; season year.}
+#'   \item{planType}{character; `"f"` (full) or `"p"` (partial).}
+#'   \item{ticketUsage}{numeric; share of tickets used (0-1).}
+#'   \item{tenure}{numeric; years as a customer.}
+#'   \item{spend}{numeric; amount spent on tickets.}
+#'   \item{tickets}{numeric; number of tickets held.}
+#'   \item{distance}{numeric; distance from the venue, in miles.}
+#'   \item{renewed}{character; `"r"` (renewed) or `"nr"` (not renewed).}
+#' }
+#' @details Built by transforming several sources; see
+#'   [f_create_lead_scoring_data()].
+#' @source Simulated for the book. See `create_data/data_ch7_customer_renewal.R`.
+#' @family datasets
 "customer_renewals"
 
-#' @title fa_survey_data
-#' @description Simulated survey response data to perform factor analysis
-#' @format A data frame with 10000 rows and 26 variables:
+#' Concession-stand wait times
+#'
+#' Transaction-level wait times at a concession stand, decomposed into ordering,
+#' payment and fulfilment stages.
+#'
+#' @format A data frame with 900 rows and 5 variables:
 #' \describe{
-#'   \item{\code{ReasonForAttending}}{character element rank}
-#'   \item{\code{Socialize}}{double element rank}
-#'   \item{\code{Tailgate}}{double element rank}
-#'   \item{\code{TakeSelfies}}{double element rank}
-#'   \item{\code{PostToSocialMedia}}{double element rank}
-#'   \item{\code{SeeFriends}}{double element rank}
-#'   \item{\code{VisitKidAttractions}}{double element rank}
-#'   \item{\code{MeetMascot}}{double element rank}
-#'   \item{\code{SnacksForKids}}{double element rank}
-#'   \item{\code{KidsRunBases}}{double element rank}
-#'   \item{\code{KidsSlide}}{double element rank}
-#'   \item{\code{GetDinner}}{double element rank}
-#'   \item{\code{EatParkFood}}{double element rank}
-#'   \item{\code{SampleFood}}{double element rank}
-#'   \item{\code{GetDrinks}}{double element rank}
-#'   \item{\code{DrinkBeer}}{double element rank}
-#'   \item{\code{BuyGear}}{double element rank}
-#'   \item{\code{TourThePark}}{double element rank}
-#'   \item{\code{VisitAttractions}}{double element rank}
-#'   \item{\code{WatchPregameShow}}{double element rank}
-#'   \item{\code{SeeTheChicken}}{double element rank}
-#'   \item{\code{UpgradeSeats}}{double element rank}
-#'   \item{\code{GetAutographs}}{double element rank}
-#'   \item{\code{WatchGame}}{double element rank}
-#'   \item{\code{SeePractice}}{double element rank}
-#'   \item{\code{MeetPlayers}}{double element rank}
-#'}
-#' @details Fan asked to rank elements 0-10
-"fa_survey_data"
+#'   \item{transaction}{numeric; transaction index.}
+#'   \item{orderTimes}{numeric; ordering time, in seconds.}
+#'   \item{paymentTimes}{numeric; payment time, in seconds.}
+#'   \item{fulfillTimes}{numeric; fulfilment time, in seconds.}
+#'   \item{totalTime}{numeric; total time, in seconds.}
+#' }
+#' @details Three 300-transaction sessions stacked together; see
+#'   [f_get_wait_times()].
+#' @source Simulated for the book. See `create_data/data_ch10_wait_times_data.R`.
+#' @family datasets
+"wait_times_data"
+
+#' Wait-time distribution sample
+#'
+#' A larger sample of concession wait times (same columns as [wait_times_data])
+#' used to illustrate fitting and simulating from a distribution.
+#'
+#' @format A data frame with 3,000 rows and 5 variables:
+#' \describe{
+#'   \item{transaction}{numeric; transaction index.}
+#'   \item{orderTimes}{numeric; ordering time, in seconds.}
+#'   \item{paymentTimes}{numeric; payment time, in seconds.}
+#'   \item{fulfillTimes}{numeric; fulfilment time, in seconds.}
+#'   \item{totalTime}{numeric; total time, in seconds.}
+#' }
+#' @source Simulated for the book. See `create_data/data_ch10_wait_times_data.R`.
+#' @family datasets
+"wait_times_distribution_data"

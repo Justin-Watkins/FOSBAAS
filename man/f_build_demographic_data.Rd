@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_build_demographic_data.R
 \name{f_build_demographic_data}
 \alias{f_build_demographic_data}
-\title{f_build_demographic_data}
+\title{Build a synthetic customer demographic data set}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_demographic_data.R}
 }
@@ -22,34 +22,61 @@ f_build_demographic_data(
 )
 }
 \arguments{
-\item{seed2}{A number to randomize customer age}
+\item{seed1}{Seed for IDs and names (\code{\link[=f_build_customer_ids_names]{f_build_customer_ids_names()}}).}
 
-\item{mean_age_1}{A number to set the first mean of a bimodal distribution}
+\item{seed2}{Seed for ages (\code{\link[=f_get_age]{f_get_age()}}).}
 
-\item{mean_age_2}{A number to set the second mean of a bimodal distribution}
+\item{mean_age_1, mean_age_2}{Means of the two age groups.}
 
-\item{sd_age_1}{A number to set the first sd of a bimodal distribution}
+\item{sd_age_1, sd_age_2}{Standard deviations of the two age groups.}
 
-\item{sd_age_2}{A number to set the first sd of a bimodal distribution}
+\item{seed3}{Seed for locations (\code{\link[=f_get_distance]{f_get_distance()}}).}
 
-\item{seed3}{A number to randomize distance from the park}
+\item{seed4}{Seed for marital status.}
 
-\item{seed4}{A number to randomize customer marital status}
+\item{seed5}{Seed for ethnicity.}
 
-\item{seed5}{A number to randomize customer ethnicity}
+\item{seed6}{Seed for children.}
 
-\item{seed6}{A number to randomize customer's number of children}
-
-\item{seed7}{A number to randomize customer' age's household income}
-
-\item{seed}{A number to randomize customer ids}
+\item{seed7}{Seed for household income.}
 }
 \value{
-creates a demographic data set representing 200,000 customers
+A data frame of 200,000 customers with the columns \code{custID}, \code{nameF},
+\code{nameL}, \code{nameFull}, \code{gender}, \code{age}, \code{latitude}, \code{longitude}, \code{distance},
+\code{maritalStatus}, \code{ethnicity}, \code{children} and \code{hhIncome}.
 }
 \description{
-Create a data frame to simulate demographic data
+Assembles a full demographic table for a synthetic customer base by combining
+the demographic-simulation helpers: it generates IDs and names, infers
+gender, draws a bimodal age distribution, places customers geographically,
+and then simulates marital status, ethnicity, children and household income.
+The result mirrors the simulated columns of the bundled \link{demographic_data}.
+}
+\details{
+Each random column is seeded once (here in the orchestrator) before being
+filled row-wise, which is why the per-row demographic helpers no longer take
+a \code{seed} argument. The bundled \link{demographic_data} adds a \code{county} column
+derived from the coordinates during data-set assembly; this function returns
+the 13 simulation columns.
 }
 \examples{
-f_build_demographic_data(100,200,30,60,10,10,300,400,500,600,700)
+\donttest{
+demo <- f_build_demographic_data(seed1 = 100, seed2 = 200,
+          mean_age_1 = 30, mean_age_2 = 60, sd_age_1 = 10, sd_age_2 = 10,
+          seed3 = 300, seed4 = 400, seed5 = 500, seed6 = 600, seed7 = 700)
+head(demo)
 }
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

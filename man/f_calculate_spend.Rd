@@ -2,13 +2,47 @@
 % Please edit documentation in R/f_calculate_spend.R
 \name{f_calculate_spend}
 \alias{f_calculate_spend}
-\title{f_calculate_spend}
+\title{Simulate per-ticket spend}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_calculate_spend.R}
 }
 \usage{
 f_calculate_spend(corporate, planType, tenure, avgTenure)
 }
-\description{
-Assign a spend per ticket amount
+\arguments{
+\item{corporate}{Account type: \code{"c"} (corporate) or \code{"i"} (individual).}
+
+\item{planType}{Plan type: \code{"f"} (full season) or \code{"p"} (partial).}
+
+\item{tenure}{Account tenure in years.}
+
+\item{avgTenure}{Average tenure across all accounts, used as the
+high/low threshold.}
 }
+\value{
+A single non-negative rounded spend figure (per ticket).
+}
+\description{
+Draws an average spend-per-ticket figure for an account. Corporate accounts,
+full-season plans and longer-tenured customers spend more. Designed to be
+called row-wise when building lead-scoring data with
+\code{\link[=f_create_lead_scoring_data]{f_create_lead_scoring_data()}}.
+}
+\details{
+Set the seed once in the caller for reproducibility.
+}
+\examples{
+set.seed(1)
+f_calculate_spend(corporate = "c", planType = "f",
+                  tenure = 12, avgTenure = 8)
+
+}
+\seealso{
+Other lead_scoring: 
+\code{\link{f_assign_renewal}()},
+\code{\link{f_calculate_tenure}()},
+\code{\link{f_calculate_ticket_use}()},
+\code{\link{f_create_lead_scoring_data}()},
+\code{\link{f_renewal_assignment}()}
+}
+\concept{lead_scoring}

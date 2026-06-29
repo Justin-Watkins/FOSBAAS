@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_get_time_observations.R
 \name{f_get_time_observations}
 \alias{f_get_time_observations}
-\title{f_get_time_observations}
+\title{Generate a sequence of clock times by the minute}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_time_observations.R}
 }
@@ -10,16 +10,35 @@
 f_get_time_observations(start, end)
 }
 \arguments{
-\item{start}{A number < 24}
+\item{start}{First hour to include, an integer in \code{0:23}.}
 
-\item{end}{A number < 24}
+\item{end}{Last hour to include, an integer in \code{0:23} and \verb{>= start}.}
 }
 \value{
-Formatted military time values
+A character vector of \code{(end - start + 1) * 60} time labels in
+\code{"HH:MM"} format, ordered from \code{start:00} to \code{end:59}.
 }
 \description{
-Helper function to format time
+Produces every minute between two whole hours as zero-padded \code{"HH:MM"}
+strings, e.g. \code{"17:00"}, \code{"17:01"}, ... It is used to give the simulated gate
+\link{scan_data} a realistic, evenly spaced time axis.
+}
+\details{
+Hours and minutes are zero-padded with \code{\link[=f_add_zero]{f_add_zero()}} so labels sort
+correctly as text.
 }
 \examples{
-f_get_time_observations(5,6)
+head(f_get_time_observations(17, 21))
+length(f_get_time_observations(17, 21))
+
 }
+\seealso{
+\code{\link[=f_add_zero]{f_add_zero()}}
+
+Other utilities: 
+\code{\link{f_add_zero}()},
+\code{\link{f_build_freq_table}()},
+\code{\link{f_define_line}()},
+\code{\link{f_get_miles_NV}()}
+}
+\concept{utilities}

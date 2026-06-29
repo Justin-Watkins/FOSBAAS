@@ -2,13 +2,53 @@
 % Please edit documentation in R/f_get_age.R
 \name{f_get_age}
 \alias{f_get_age}
-\title{f_get_age}
+\title{Simulate a bimodal age distribution}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_age.R}
 }
 \usage{
 f_get_age(seed, num_rows = 2e+05, g1_mean, g2_mean, g1_sd, g2_sd)
 }
-\description{
-create a bimodal age distribution
+\arguments{
+\item{seed}{Integer seed; makes the ages reproducible.}
+
+\item{num_rows}{Number of ages to return; defaults to \code{200000}.}
+
+\item{g1_mean, g1_sd}{Mean and standard deviation of the first (younger) group.}
+
+\item{g2_mean, g2_sd}{Mean and standard deviation of the second (older) group.}
 }
+\value{
+A numeric vector of \code{num_rows} whole-number ages, shuffled so the two
+groups are interleaved. The mixture is roughly 40\% from group 1 and 60\%
+from group 2.
+}
+\description{
+Draws customer ages from a mixture of two normal distributions, producing the
+twin-peaked age profile typical of a sports fan base (a younger group and an
+older group).
+}
+\section{Bug fix}{
+
+The \code{seed} argument is now actually used (\code{set.seed(seed)}); previously it was
+ignored, so results were not reproducible.
+}
+
+\examples{
+ages <- f_get_age(seed = 200, num_rows = 1000,
+                  g1_mean = 30, g2_mean = 55, g1_sd = 8, g2_sd = 10)
+summary(ages)
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

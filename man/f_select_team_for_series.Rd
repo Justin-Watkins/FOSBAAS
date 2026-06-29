@@ -2,13 +2,47 @@
 % Please edit documentation in R/f_select_team_for_series.R
 \name{f_select_team_for_series}
 \alias{f_select_team_for_series}
-\title{f_select_team_for_series}
+\title{Assign opponents to a season's home games}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_select_team_for_series.R}
 }
 \usage{
 f_select_team_for_series(seed, number)
 }
-\description{
-Determine which team is played
+\arguments{
+\item{seed}{Integer seed; makes the opponent assignment reproducible.}
+
+\item{number}{Number of games to assign (81 for a half-season).}
 }
+\value{
+A list of length \code{number} of three-letter opponent abbreviations.
+}
+\description{
+Walks through the games of a season and assigns the same randomly chosen MLB
+opponent to each game of a home stand (3 or 6 consecutive games), so the
+resulting schedule looks like a real one in which a visiting team plays a
+short series.
+}
+\details{
+Series lengths are sampled from \code{c(3, 6)} with probabilities \code{c(.7, .3)}.
+Opponents are drawn (with replacement across series) from the 30 MLB club
+abbreviations, so the set of teams that appears depends on \code{seed}.
+}
+\examples{
+teams <- f_select_team_for_series(seed = 755, number = 81)
+length(teams)
+table(unlist(teams))
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()}
+}
+\concept{season_simulation}

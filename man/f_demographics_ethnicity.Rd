@@ -2,13 +2,49 @@
 % Please edit documentation in R/f_demographics_ethnicity.R
 \name{f_demographics_ethnicity}
 \alias{f_demographics_ethnicity}
-\title{f_demographics_ethnicity}
+\title{Simulate ethnicity for one customer}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_demographics_ethnicity.R}
 }
 \usage{
-f_demographics_ethnicity(seed, distance, age)
+f_demographics_ethnicity(distance, age)
+}
+\arguments{
+\item{distance}{Distance from the venue, in miles.}
+
+\item{age}{Customer age in years.}
+}
+\value{
+A single character code: \code{"w"}, \code{"aa"}, \code{"h"} or \code{"a"}.
 }
 \description{
-Determine the ethnicity of the fan
+Draws an ethnicity code for a single customer, with probabilities that depend
+on how far they live from the venue and their age. Designed to be called
+row-wise when building \link{demographic_data}.
 }
+\section{Bug fixes}{
+
+The first and third branches (and the second and fourth) previously had
+identical conditions, so two branches were dead code and one probability
+vector summed to more than 1. The four distance-by-age cells are now distinct
+and each probability vector sums to 1. The unused \code{seed} argument was removed;
+set the seed once in the caller.
+}
+
+\examples{
+set.seed(500)
+f_demographics_ethnicity(distance = 20, age = 35)
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

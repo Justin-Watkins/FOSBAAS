@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_get_mmkn.R
 \name{f_get_MMKN}
 \alias{f_get_MMKN}
-\title{f_get_MMKN}
+\title{Solve an M/M/k/N queue}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_mmkn.R}
 }
@@ -10,20 +10,43 @@
 f_get_MMKN(k, N, ta, ts)
 }
 \arguments{
-\item{k}{number of servers}
+\item{k}{Number of servers.}
 
-\item{N}{maximum allowed in the system}
+\item{N}{Maximum number of customers allowed in the system (capacity).}
 
-\item{ta}{average time between arrivals}
+\item{ta}{Mean time between arrivals (same time unit as \code{ts}).}
 
-\item{ts}{average service time}
+\item{ts}{Mean service time.}
 }
 \value{
-'Servers:','System Capacity:','Time between arrivals:','Average service time:','Minutes in service:','Minutes in queue:','Minutes in system:'
+A data frame with columns \code{Metric} and \code{Value} and one row for each
+of: servers, system capacity, time between arrivals, average service time,
+minutes in service, minutes in queue and minutes in the system.
 }
 \description{
-produce queuing output for an MMKN queuing discipline
+Computes the standard performance measures of an M/M/k/N queue: \code{k} parallel
+servers, Poisson arrivals, exponential service times and a finite system
+capacity of \code{N} customers. The book uses it to reason about staffing at a
+concession stand or gate.
+}
+\details{
+Arrival rate is \code{lambda = 1/ta}, service rate \code{mu = 1/ts}, and utilisation
+\code{rho = lambda/mu}. The state probabilities give the effective arrival rate and
+the expected number in service and in queue, from which the waiting times
+follow by Little's law.
 }
 \examples{
-f_get_MMKN(2,50,4,5)
+f_get_MMKN(k = 2, N = 5, ta = 10, ts = 8)
+
 }
+\seealso{
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

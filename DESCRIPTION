@@ -1,18 +1,38 @@
 Package: FOSBAAS
-Version: 0.1.0.9001
-Date: 2022-01-23
-Title: This is a helper package that contains all functions and data for the book "Fundamentals of Sports Business Analytics and Strategy."
+Type: Package
+Version: 0.2.0
+Date: 2026-06-29
+Title: Functions and Data for Fundamentals of Sports Business Analytics and Strategy
 Authors@R: c(person("Justin", "Watkins", role = c("aut", "cre"),
                      email = "watkinsjudo@gmail.com"))
 Author: Justin Watkins [aut, cre]
 Maintainer: Justin Watkins <watkinsjudo@gmail.com>
-Depends: R (>= 3.1.0), dplyr
-Suggests: 
-Description: This package is here to help illustrate sports business data.
-  Use it with the book "Fundamentals of Sports Business and Analytics."
-  Many of the functions do not have sophisticated error checking because 
-  they are only mean't to be used for one specific task in a very specific way. 
+Description: A companion package for the book "Fundamentals of Sports Business
+    Analytics and Strategy" (FOSBAAS). It bundles the example data sets used
+    throughout the book together with the simulation and helper functions that
+    generated them. The data describe a fictional professional sports franchise
+    (tickets, customers, demographics, promotions, secondary-market sales and
+    ballpark operations) and let readers reproduce the analyses end to end. The
+    simulation functions are intentionally simple and are meant for teaching
+    rather than production use.
 License: GPL (>= 2)
 URL: https://github.com/Justin-Watkins/FOSBAAS
-RoxygenNote: 7.2.1
+BugReports: https://github.com/Justin-Watkins/FOSBAAS/issues
+Depends: R (>= 3.5.0)
+Imports:
+    dplyr,
+    lubridate,
+    stats
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    pkgdown,
+    readr
+VignetteBuilder: knitr
+Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Config/testthat/edition: 3

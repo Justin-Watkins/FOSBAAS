@@ -1,77 +1,68 @@
-#' @title f_get_MMKN
-#' @param k number of servers
-#' @param N maximum allowed in the system
-#' @param ta average time between arrivals
-#' @param ts average service time
-#' @return 'Servers:','System Capacity:','Time between arrivals:','Average service time:','Minutes in service:','Minutes in queue:','Minutes in system:'
-#' @description produce queuing output for an MMKN queuing discipline
-#' @examples f_get_MMKN(2,50,4,5)
-#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_mmkn.R}
+#' Solve an M/M/k/N queue
+#'
+#' Computes the standard performance measures of an M/M/k/N queue: `k` parallel
+#' servers, Poisson arrivals, exponential service times and a finite system
+#' capacity of `N` customers. The book uses it to reason about staffing at a
+#' concession stand or gate.
+#'
+#' @param k Number of servers.
+#' @param N Maximum number of customers allowed in the system (capacity).
+#' @param ta Mean time between arrivals (same time unit as `ts`).
+#' @param ts Mean service time.
+#'
+#' @return A data frame with columns `Metric` and `Value` and one row for each
+#'   of: servers, system capacity, time between arrivals, average service time,
+#'   minutes in service, minutes in queue and minutes in the system.
+#'
+#' @details
+#' Arrival rate is `lambda = 1/ta`, service rate `mu = 1/ts`, and utilisation
+#' `rho = lambda/mu`. The state probabilities give the effective arrival rate and
+#' the expected number in service and in queue, from which the waiting times
+#' follow by Little's law.
+#'
+#' @examples
+#' f_get_MMKN(k = 2, N = 5, ta = 10, ts = 8)
+#'
+#' @family operations
+#' @source <https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_mmkn.R>
 #' @export
+f_get_MMKN <- function(k, N, ta, ts) {
 
-f_get_MMKN <- function(k,N,ta,ts){
+  lambda <- 1 / ta # arrivals per unit time
+  mu     <- 1 / ts # service completions per unit time
+  rho    <- lambda / mu # utilisation ratio
 
-  # k = number of servers
-  # N = maximum allowed in the system
-  # ta = average time between arrivals
-  # ts = average service time
+  # Probability of an empty system, P0.
+  n  <- seq(0, N - 1, by = 1)
+  P0 <- 1 / sum(((rho^n) / factorial(n)) +
+                  ((rho^k) / (factorial(k) * ((k^(N - k + 1)) -
+                  (rho^(N - k + 1)) / ((k - rho) * (k^(N - k)))))))
 
-  lambda = 1/ta #: per minute
-  mu     = 1/ts #: per minute
-  rho = lambda/mu #: utilization ratio
+  # State probabilities for n <= k and n > k.
+  n   <- seq(0, k, by = 1)
+  Pn0 <- rho^n / factorial(n) * P0
+  n   <- seq(k + 1, N, by = 1)
+  Pn1 <- rho^n / (factorial(k) * k^(n - k)) * P0
+  Pn  <- c(Pn0, Pn1)
 
-  #------------------------------------------------------------------
-  # Probability of n units in the system
-  # for
-  n = seq(0, N-1, by = 1 )
-  P0 <- 1/ sum(((rho^n)/factorial(n)) + ((rho^k)/(factorial(k)*((k^(N-k+1)) - (rho^(N-k+1))/((k-rho)*(k^(N-k)))))))
+  len      <- length(Pn)
+  lambda_e <- lambda * (1 - Pn[len]) # effective arrival rate
+  rho_e    <- lambda_e / mu
 
-  # Probability of n units in the system
-  # for
-  n = seq(0, k, by = 1 )
-  Pn0 <- rho^n/factorial(n)*P0
+  Ls <- rho_e # expected number in service
 
-  # for
-  n = seq(k + 1, N, by = 1 )
-  Pn1 <- rho^n/(factorial(k)*k^(n-k))*P0
+  n  <- seq(k + 2, N + 1, by = 1)
+  Lq <- sum((n - (k + 1)) * Pn[n]) # expected number in queue
 
-  Pn      <- c(Pn0,Pn1)
+  Ws <- Ls / lambda_e # time in service
+  Wq <- Lq / lambda_e # time in queue
+  W  <- Wq + Ws       # time in system
 
-  #------------------------------------------------------------------
-  # calculations
-  len     <- max(length(Pn))
-
-  lambda_e  <- lambda*(1 - Pn[len])
-  rho_e    <- lambda_e/mu
-
-  # Expected in queue
-  Ls = rho_e #   Ls = 1*Pn[2] + 2*sum(Pn[-c(1,2)])
-
-  # for
-  n = seq(k+2, N + 1, by = 1 )
-  Lq = sum((n-(k+1))*Pn[n]) # Lq = 1*Pn[4] + 2*Pn[5] + 3*Pn[6]
-
-  # expected units in the system
-  L = Ls + Lq
-
-  # Expected service time
-  Ws = Ls/lambda_e # minutes in service
-  Wq = Lq/lambda_e # minutes in queue
-  W  = Wq + Ws   # minutes in system
-
-  #------------------------------------------------------------------
-  # Build output
-  frame <- data.frame(matrix(nrow = 7,ncol =2))
-  names(frame) <- c('Metric','Value')
-
-  metric <- c('Servers:','System Capacity:','Time between arrivals:',
-              'Average service time:','Minutes in service:',
-              'Minutes in queue:','Minutes in system:')
-  values <- c(k,N,ta,ts,Ws,Wq,W)
-
-  frame[,1] <- metric
-  frame[,2] <- values
-
-  return(frame)
-
+  data.frame(
+    Metric = c("Servers:", "System Capacity:", "Time between arrivals:",
+               "Average service time:", "Minutes in service:",
+               "Minutes in queue:", "Minutes in system:"),
+    Value  = c(k, N, ta, ts, Ws, Wq, W),
+    stringsAsFactors = FALSE
+  )
 }

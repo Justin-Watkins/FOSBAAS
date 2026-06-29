@@ -2,19 +2,42 @@
 % Please edit documentation in R/f_get_third_degree_fit.R
 \name{f_get_third_degree_fit}
 \alias{f_get_third_degree_fit}
-\title{f_get_third_degree_fit}
+\title{Evaluate a fitted cubic polynomial}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_third_degree_fit.R}
 }
 \usage{
 f_get_third_degree_fit(new_var, dist_fit)
 }
+\arguments{
+\item{new_var}{The value at which to evaluate the polynomial.}
+
+\item{dist_fit}{A fitted model (e.g. from \code{\link[stats:lm]{stats::lm()}}) whose first four
+coefficients are the intercept and the linear, quadratic and cubic terms.}
+}
 \value{
-output of third degree polynomial function
+The numeric value of the cubic at \code{new_var}.
 }
 \description{
-Outputs a value based on a third degree polynomial function
+Evaluates a third-degree polynomial at a new point using the first four
+coefficients of a fitted model. It is used to read values off a cubic curve
+fitted to an empirical distribution (see \code{\link[=f_simulate_distribution]{f_simulate_distribution()}}).
 }
 \examples{
-f_get_third_degree_fit()
+x <- 1:50
+y <- 2 + 0.5 * x - 0.01 * x^2 + 0.0001 * x^3
+fit <- lm(y ~ x + I(x^2) + I(x^3))
+f_get_third_degree_fit(new_var = 25, dist_fit = fit)
+
 }
+\seealso{
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

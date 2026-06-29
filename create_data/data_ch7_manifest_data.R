@@ -1,14 +1,18 @@
 #-----------------------------------------------------------------
-# manifet_data data set
+# manifest_data  (used in Chapter 7)
 #
-# This data set approximates a disaggregated seat manifest for a ballpark
+# Builds a disaggregated seat manifest for the ballpark, producing
+# `FOSBAAS::manifest_data`. Section prices are derived from a price
+# distribution, seat counts per section come from an exponential demand curve,
+# and the summary is then exploded to one row per physical seat. This is
+# bespoke base-R/dplyr simulation with no package-function equivalent, so the
+# logic below is preserved as-is.
 #
+# Output schema: seatID, section, sectionNumber, rowNumber, seatNumber,
+# seasonPrice, groupPrice, singlePrice.
 #-----------------------------------------------------------------
 
-
-#-----------------------------------------------------------------
-# BEGIN Manifest data
-#-----------------------------------------------------------------
+library(dplyr)
 
 section_prices <- as.data.frame(matrix(nrow = 25, ncol = 7))
 names(section_prices) <- c("section", "sectionName", "level", "seats",

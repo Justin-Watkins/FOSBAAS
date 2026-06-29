@@ -2,9 +2,9 @@
 % Please edit documentation in R/f_create_lead_scoring_data.R
 \name{f_create_lead_scoring_data}
 \alias{f_create_lead_scoring_data}
-\title{f_create_lead_scoring_data}
+\title{Build a season-ticket-holder lead-scoring data set}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_create_lead_scoring_data.R}
 }
 \usage{
 f_create_lead_scoring_data(
@@ -16,31 +16,71 @@ f_create_lead_scoring_data(
   f_use,
   f_renewal_assignment,
   f_assign_renewal,
-  renew = T
+  renew = TRUE
 )
 }
 \arguments{
-\item{seed}{PARAM_DESCRIPTION}
+\item{seed}{Integer seed; makes the whole table reproducible.}
 
-\item{num_purchasers}{How many purchasers do you want}
+\item{num_purchasers}{Number of accounts to generate.}
 
-\item{season}{What year is the season you are describing}
+\item{season}{Season year to stamp on every row, e.g. \code{2023}.}
 
-\item{f_tenure}{function see ?f_calculate_tenure}
+\item{f_tenure}{Function that draws tenure; normally \code{\link[=f_calculate_tenure]{f_calculate_tenure()}}.}
 
-\item{f_spend}{function see ?f_calculate_spend}
+\item{f_spend}{Function that draws spend; normally \code{\link[=f_calculate_spend]{f_calculate_spend()}}.}
 
-\item{f_use}{function see ?f_calculate_ticket_use}
+\item{f_use}{Function that draws ticket usage; normally
+\code{\link[=f_calculate_ticket_use]{f_calculate_ticket_use()}}.}
 
-\item{f_renewal_assignment}{function see ?f_assign_renewal}
+\item{f_renewal_assignment}{Function that assigns renewals; normally
+\code{\link[=f_renewal_assignment]{f_renewal_assignment()}}.}
 
-\item{f_assign_renewal}{function see ?f_assign_renewal}
+\item{f_assign_renewal}{Function that draws a single renewal outcome; normally
+\code{\link[=f_assign_renewal]{f_assign_renewal()}}.}
 
-\item{renew}{Do you want simulated renewals, Default: T}
+\item{renew}{Logical; if \code{TRUE} (default) tenure is simulated and a \code{renewed}
+column is added, otherwise tenure is \code{0} and no renewal is assigned.}
 }
 \value{
-A dataframe with 10 columns corresponding to features associated with season ticket holders
+A data frame of \code{num_purchasers} accounts. With \code{renew = TRUE} it has
+the ten columns of \link{customer_renewals}; with \code{renew = FALSE} it returns the
+nine feature columns without \code{renewed}.
 }
 \description{
-Build a dataset that resembles season ticket holder renewal data
+Generates a synthetic table of season-ticket accounts with the features used
+for renewal/lead-scoring models: account type, plan type, distance, tickets,
+tenure, spend and ticket usage, optionally with a simulated renewal outcome.
+It mirrors the bundled \link{customer_renewals} data.
 }
+\details{
+The simulation injects its helper functions as arguments so the book can swap
+in alternative behaviours; pass the package functions of the same name for
+the standard data set.
+}
+\section{Bug fix}{
+
+The corporate plan-type probabilities were \code{c(.95, .5)} (summing to 1.45);
+they are now \code{c(.95, .05)}, matching the "95\% full-season" intent in the
+original comment.
+}
+
+\examples{
+lead <- f_create_lead_scoring_data(
+  seed = 434, num_purchasers = 250, season = 2023,
+  f_tenure = f_calculate_tenure, f_spend = f_calculate_spend,
+  f_use = f_calculate_ticket_use,
+  f_renewal_assignment = f_renewal_assignment,
+  f_assign_renewal = f_assign_renewal)
+head(lead)
+
+}
+\seealso{
+Other lead_scoring: 
+\code{\link{f_assign_renewal}()},
+\code{\link{f_calculate_spend}()},
+\code{\link{f_calculate_tenure}()},
+\code{\link{f_calculate_ticket_use}()},
+\code{\link{f_renewal_assignment}()}
+}
+\concept{lead_scoring}

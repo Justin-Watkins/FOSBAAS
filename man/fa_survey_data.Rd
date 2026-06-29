@@ -3,45 +3,47 @@
 \docType{data}
 \name{fa_survey_data}
 \alias{fa_survey_data}
-\title{fa_survey_data}
+\title{Factor-analysis survey responses}
 \format{
-A data frame with 10000 rows and 26 variables:
+A data frame with 10,000 rows and 26 variables: \code{ReasonForAttending}
+(character) plus 25 numeric activity ratings, each scored 0-10:
 \describe{
-  \item{\code{ReasonForAttending}}{character element rank}
-  \item{\code{Socialize}}{double element rank}
-  \item{\code{Tailgate}}{double element rank}
-  \item{\code{TakeSelfies}}{double element rank}
-  \item{\code{PostToSocialMedia}}{double element rank}
-  \item{\code{SeeFriends}}{double element rank}
-  \item{\code{VisitKidAttractions}}{double element rank}
-  \item{\code{MeetMascot}}{double element rank}
-  \item{\code{SnacksForKids}}{double element rank}
-  \item{\code{KidsRunBases}}{double element rank}
-  \item{\code{KidsSlide}}{double element rank}
-  \item{\code{GetDinner}}{double element rank}
-  \item{\code{EatParkFood}}{double element rank}
-  \item{\code{SampleFood}}{double element rank}
-  \item{\code{GetDrinks}}{double element rank}
-  \item{\code{DrinkBeer}}{double element rank}
-  \item{\code{BuyGear}}{double element rank}
-  \item{\code{TourThePark}}{double element rank}
-  \item{\code{VisitAttractions}}{double element rank}
-  \item{\code{WatchPregameShow}}{double element rank}
-  \item{\code{SeeTheChicken}}{double element rank}
-  \item{\code{UpgradeSeats}}{double element rank}
-  \item{\code{GetAutographs}}{double element rank}
-  \item{\code{WatchGame}}{double element rank}
-  \item{\code{SeePractice}}{double element rank}
-  \item{\code{MeetPlayers}}{double element rank}
+\item{ReasonForAttending}{character; the respondent's stated reason for attending.}
+\item{Socialize, Tailgate, TakeSelfies, PostToSocialMedia, SeeFriends}{numeric ratings.}
+\item{VisitKidAttractions, MeetMascot, SnacksForKids, KidsRunBases, KidsSlide}{numeric ratings.}
+\item{GetDinner, EatParkFood, SampleFood, GetDrinks, DrinkBeer}{numeric ratings.}
+\item{BuyGear, TourThePark, VisitAttractions, WatchPregameShow, SeeTheChicken}{numeric ratings.}
+\item{UpgradeSeats, GetAutographs, WatchGame, SeePractice, MeetPlayers}{numeric ratings.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch5_fa_survey_data.R}.
 }
 \usage{
 fa_survey_data
 }
 \description{
-Simulated survey response data to perform factor analysis
+Simulated survey data designed for a factor-analysis example: respondents
+rate how important a list of game-day activities is to them.
 }
 \details{
-Fan asked to rank elements 0-10
+Respondents were asked to rate each activity from 0 to 10.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

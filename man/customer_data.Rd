@@ -3,21 +3,41 @@
 \docType{data}
 \name{customer_data}
 \alias{customer_data}
-\title{customer_data}
+\title{Customer identity table}
 \format{
-A data frame with 200000 rows and 2 variables:
+A data frame with 200,000 rows and 2 variables:
 \describe{
-  \item{\code{custID}}{character customer id}
-  \item{\code{name}}{character customner name}
+\item{custID}{character; customer ID.}
+\item{name}{character; customer full name.}
 }
+}
+\source{
+Simulated with \code{\link[=f_build_customer_ids_names]{f_build_customer_ids_names()}}.
 }
 \usage{
 customer_data
 }
 \description{
-database of customer id and names
+A minimal ticketing-database customer list: an account ID and a name.
 }
 \details{
-Replicates customer data found in a ticketing database
+Mirrors the customer table you would find in a ticketing system.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

@@ -1,0 +1,46 @@
+url: https://github.com/Justin-Watkins/FOSBAAS
+
+template:
+  bootstrap: 5
+
+home:
+  title: FOSBAAS
+  description: >
+    Functions and data for the book "Fundamentals of Sports Business Analytics
+    and Strategy."
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [github]
+
+articles:
+  - title: Get started
+    contents:
+      - fosbaas-intro
+
+reference:
+  - title: Season simulation
+    desc: Build a season schedule with simulated ticket sales.
+    contents:
+      - has_concept("season_simulation")
+  - title: Customer & demographic simulation
+    desc: Generate a synthetic customer base and its demographics.
+    contents:
+      - has_concept("demographic_simulation")
+  - title: Lead scoring
+    desc: Build season-ticket-holder data and renewal outcomes.
+    contents:
+      - has_concept("lead_scoring")
+  - title: Operations & queueing
+    desc: Gate scans, concession lines, wait times and queues.
+    contents:
+      - has_concept("operations")
+  - title: Utilities
+    desc: Small helper functions used across the book.
+    contents:
+      - has_concept("utilities")
+  - title: Data sets
+    desc: The example data shipped with the package.
+    contents:
+      - has_concept("datasets")

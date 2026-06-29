@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_get_scan_data.R
 \name{f_get_scan_data}
 \alias{f_get_scan_data}
-\title{f_get_scan_data}
+\title{Simulate a session of gate scans}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scan_data.R}
 }
@@ -10,16 +10,40 @@
 f_get_scan_data(x_value, y_value, seed, sd_mod)
 }
 \arguments{
-\item{seed}{random number}
+\item{x_value}{Width parameter passed to \code{\link[=f_calc_scans]{f_calc_scans()}} as \code{x}.}
 
-\item{sd_mod}{standard deviation modifier}
+\item{y_value}{Peak-height parameter passed to \code{\link[=f_calc_scans]{f_calc_scans()}} as \code{y}.}
+
+\item{seed}{Integer seed; makes the noisy counts reproducible.}
+
+\item{sd_mod}{Noise control: larger values give smoother (less noisy) counts
+(the per-point standard deviation is the count divided by \code{sd_mod}).}
 }
 \value{
-Return a parabola based on different parameters
+A data frame with 300 rows and the columns \code{observations} (\code{1:300})
+and \code{scans} (non-negative whole-number counts).
 }
 \description{
-Return a data set that approximates scan data
+Builds 300 minutes of gate-scan counts by evaluating the \code{\link[=f_calc_scans]{f_calc_scans()}}
+parabola at each minute and adding multiplicative noise, producing the
+rise-and-fall pattern of fans entering a ballpark. This is the building block
+behind the bundled \link{scan_data}.
 }
 \examples{
-f_get_scan_data(1,5,714,20)
+scans <- f_get_scan_data(x_value = 230, y_value = 110, seed = 714, sd_mod = 14)
+head(scans)
+
 }
+\seealso{
+\code{\link[=f_calc_scans]{f_calc_scans()}}, \link{scan_data}
+
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

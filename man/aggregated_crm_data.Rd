@@ -3,22 +3,44 @@
 \docType{data}
 \name{aggregated_crm_data}
 \alias{aggregated_crm_data}
-\title{aggregated_crm_data}
+\title{Aggregated CRM call and revenue data}
 \format{
-A data frame with 5000 rows and 3 variables:
+A data frame with 5,000 rows and 3 variables:
 \describe{
-  \item{\code{repID}}{character rep responsible for calls}
-  \item{\code{call}}{double number of calls}
-  \item{\code{revenue}}{double revenue generated}
+\item{repID}{character; the sales rep responsible for the calls.}
+\item{call}{numeric; number of calls.}
+\item{revenue}{numeric; revenue generated.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch4_aggregated_crm_data.R}.
 }
 \usage{
 aggregated_crm_data
 }
 \description{
-Replicates aggregated call data
+A small, pre-aggregated CRM extract summarising sales-rep call activity and
+the revenue it generated. Used in the project-framing chapter.
 }
 \details{
-This data would be consolidated from raw CRM data
+This is the kind of table you would build by rolling up raw CRM
+activity to the rep level.
 }
+\seealso{
+Other datasets: 
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

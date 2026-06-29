@@ -2,13 +2,52 @@
 % Please edit documentation in R/f_renewal_assignment.R
 \name{f_renewal_assignment}
 \alias{f_renewal_assignment}
-\title{f_renewal_assignment}
+\title{Assign renewal outcomes to season-ticket accounts}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_renewal_assignment.R}
 }
 \usage{
 f_renewal_assignment(seed, sth_data, f_assign_renewal)
 }
-\description{
-Determine whether the tickets will be renewed
+\arguments{
+\item{seed}{Integer seed; makes the clustering and renewal draws reproducible.}
+
+\item{sth_data}{A data frame of season-ticket holders containing at least
+\code{accountID}, \code{ticketUsage} and \code{distance} (as produced inside
+\code{\link[=f_create_lead_scoring_data]{f_create_lead_scoring_data()}}).}
+
+\item{f_assign_renewal}{The renewal-draw function to apply to each loyalty
+score; normally \code{\link[=f_assign_renewal]{f_assign_renewal()}}.}
 }
+\value{
+\code{sth_data} with a \code{renewed} column added (\code{"r"}/\code{"nr"}), returned with
+the columns \code{accountID}, \code{corporate}, \code{season}, \code{planType}, \code{ticketUsage},
+\code{tenure}, \code{spend}, \code{tickets}, \code{distance}, \code{renewed}.
+}
+\description{
+Adds a simulated \code{renewed} flag to a season-ticket-holder table. Accounts are
+clustered on ticket usage and distance with k-means, the two cluster
+memberships are combined into a loyalty score, and that score drives a
+renew/not-renew draw via \code{\link[=f_assign_renewal]{f_assign_renewal()}}.
+}
+\details{
+Usage clusters are ordered low-to-high and distance clusters high-to-low, so a
+high combined score means a heavy user who lives close to the venue -- the
+profile most likely to renew.
+}
+\section{Bug fix}{
+
+The renewal score now uses the combined loyalty score (usage cluster plus
+distance cluster, range 2-10). The old code indexed a single cluster column
+(range 1-5), so the renewal probabilities for scores 6-10 were never reached.
+}
+
+\seealso{
+Other lead_scoring: 
+\code{\link{f_assign_renewal}()},
+\code{\link{f_calculate_spend}()},
+\code{\link{f_calculate_tenure}()},
+\code{\link{f_calculate_ticket_use}()},
+\code{\link{f_create_lead_scoring_data}()}
+}
+\concept{lead_scoring}
