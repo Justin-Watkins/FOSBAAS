@@ -1,2 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^create_data$
+^data-raw$
+^ticket_activity$
+^build_package\.R$
+^install\.R$
+^FOSBAAS_code\.R$
+^_pkgdown\.yml$
+^docs$
+^\.github$
+^LICENSE\.md$

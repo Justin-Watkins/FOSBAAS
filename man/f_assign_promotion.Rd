@@ -2,13 +2,57 @@
 % Please edit documentation in R/f_assign_promotion.R
 \name{f_assign_promotion}
 \alias{f_assign_promotion}
-\title{f_assign_promotion}
+\title{Randomly assign promotions across a season}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_assign_promotion.R}
 }
 \usage{
 f_assign_promotion(number_bbhead, number_concert, number_other, games, seed)
 }
-\description{
-Assign promotions to random dates
+\arguments{
+\item{number_bbhead}{Number of bobblehead-giveaway games.}
+
+\item{number_concert}{Number of post-game concert games.}
+
+\item{number_other}{Number of other promotional games.}
+
+\item{games}{Total number of games in the season.}
+
+\item{seed}{Integer seed; makes the assignment reproducible.}
 }
+\value{
+A character vector of length \code{games}, each element one of
+\code{"bobblehead"}, \code{"concert"}, \code{"other"} or \code{"none"}, in game order.
+}
+\description{
+Spreads a fixed number of bobblehead, concert and "other" promotional games
+across a season at random, leaving the remaining games with no promotion.
+}
+\details{
+The promotion labels are built in the requested counts, padded with \code{"none"}
+up to \code{games}, then shuffled.
+}
+\section{Bug fix}{
+
+Earlier versions wrote \code{set.seed <- seed}, which created a local variable
+instead of seeding the generator, so results were not reproducible. This
+version calls \code{set.seed(seed)}.
+}
+
+\examples{
+table(f_assign_promotion(number_bbhead = 5, number_concert = 3,
+                          number_other = 5, games = 81, seed = 366))
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

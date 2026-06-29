@@ -1,49 +1,38 @@
-#' @title f_get_line_length
-#' @param seed A number
-#' @param n A number representing the number of returned values
-#' @param u1 A number mean value
-#' @param sd1 A number standard deviation
-#' @param u2 A number mean value
-#' @param sd2 A number standard deviation
-#' @return creates a bimodal distribution of line length
+#' Simulate concession-line lengths
+#'
+#' Draws a bimodal distribution of line lengths -- a busy mode and a quiet mode
+#' -- of the kind observed at a concession stand over the course of a game.
+#'
+#' @param seed Integer seed; makes the lengths reproducible.
+#' @param n Number of observations to return; defaults to `300`.
+#' @param u1,sd1 Mean and standard deviation of the busy (longer-line) mode.
+#' @param u2,sd2 Mean and standard deviation of the quiet (shorter-line) mode.
+#'
+#' @return A data frame with `n` rows and the columns `observation` (`1:n`) and
+#'   `lineLength` (non-negative whole numbers).
+#'
+#' @section Bug fix:
+#' The function now returns the bimodal sample it draws. The previous version
+#' computed that sample, discarded it, and returned an unrelated fixed pattern,
+#' leaving the `u1`/`sd1`/`u2`/`sd2` arguments with no effect.
+#'
+#' @details
+#' About 60% of observations come from the first mode and 40% from the second.
+#'
 #' @examples
-#' f_get_line_length(755,300,20,10,30,5)
-#' @description Create a data frame to simulate line length
-#' @source \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_line_length.R}
+#' lines <- f_get_line_length(seed = 755, n = 300, u1 = 20, sd1 = 10,
+#'                            u2 = 30, sd2 = 5)
+#' head(lines)
+#'
+#' @family operations
+#' @importFrom stats rnorm
+#' @source <https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_line_length.R>
 #' @export
-
-
-f_get_line_length <- function(seed,n = 300,u1,sd1,u2,sd2){
-  ## Create a bi-modal distribution
+f_get_line_length <- function(seed, n = 300, u1, sd1, u2, sd2) {
   set.seed(seed)
-  group_1 <-  abs(rnorm(n, u1, sd1))
-  group_2 <-  abs(rnorm(n, u2, sd2))
-  line <- sample(round(c(sample(group_1,n *.6),
-                         sample(group_2,n*.4)),0),n,replace = FALSE)
-  ## Create ordinal data
-  x    <- 1
-  i    <- 1
-  samples <- c(seq(from = 1, to = 30, by = 2),
-               rev(seq(from = 1, to = 30, by = 2)),
-               seq(from = 1, to = 15, by = 1),
-               rev(seq(from = 1, to = 15, by = 1)))
-
-  lineLength <- list()
-
-  while (x <= length(samples)) {
-    alter <- samples[x]
-    y <- 1
-    while(y <= 5){
-      figure <- rnorm(1, alter, sd(samples))
-      lineLength[i] <- round(ifelse(figure < 0,0,figure),0)
-      y <- y + 1
-      i <- i + 1
-    }
-    x <- x + 1
-  }
-
-  lines <- data.frame(observation = seq(1:n),
-                      lineLength  = unlist(lineLength))
-  names(lines) <- c('observation','lineLength')
-  return(lines)
+  group_1 <- abs(rnorm(n, u1, sd1))
+  group_2 <- abs(rnorm(n, u2, sd2))
+  line <- sample(round(c(sample(group_1, n * .6),
+                         sample(group_2, n * .4)), 0), n, replace = FALSE)
+  data.frame(observation = seq_len(n), lineLength = line)
 }

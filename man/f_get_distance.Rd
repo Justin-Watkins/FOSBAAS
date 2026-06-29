@@ -2,13 +2,58 @@
 % Please edit documentation in R/f_get_distance.R
 \name{f_get_distance}
 \alias{f_get_distance}
-\title{f_get_distance}
+\title{Simulate customer locations and distance from the venue}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_distance.R}
 }
 \usage{
-f_get_distance(seed, n = 2e+05, f_get_miles_NV)
+f_get_distance(seed, n = 2e+05, miles_fn = f_get_miles_NV)
+}
+\arguments{
+\item{seed}{Integer seed; makes the locations reproducible.}
+
+\item{n}{Number of customers to place; defaults to \code{200000}.}
+
+\item{miles_fn}{Function used to convert a latitude/longitude to miles from
+the venue; defaults to \code{\link[=f_get_miles_NV]{f_get_miles_NV()}}.}
+}
+\value{
+A list of three numeric vectors, each of length \code{n}: latitudes,
+longitudes and distances (miles) from the venue.
 }
 \description{
-create locations for imaginary customers
+Places synthetic customers around six population centres (one of them the
+home city), then computes each customer's great-circle distance from the
+ballpark. The result feeds the \code{latitude}, \code{longitude} and \code{distance} columns
+of \link{demographic_data}.
 }
+\details{
+Roughly 55\% of customers cluster tightly around the home city and the rest
+are spread across five regional centres, giving a realistic mix of local and
+out-of-town fans.
+}
+\section{Bug fix}{
+
+The \code{seed} argument is now used (\code{set.seed(seed)}); previously the seeding
+line was commented out, so locations were not reproducible.
+}
+
+\examples{
+loc <- f_get_distance(seed = 305, n = 1000)
+summary(loc[[3]])
+
+}
+\seealso{
+\code{\link[=f_get_miles_NV]{f_get_miles_NV()}}
+
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()}
+}
+\concept{demographic_simulation}

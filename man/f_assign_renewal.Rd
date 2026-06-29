@@ -2,13 +2,45 @@
 % Please edit documentation in R/f_assign_renewal.R
 \name{f_assign_renewal}
 \alias{f_assign_renewal}
-\title{f_assign_renwal}
+\title{Draw a renewal outcome from a loyalty score}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_assign_renewal.R}
 }
 \usage{
 f_assign_renewal(x, renew)
 }
-\description{
-Assign a renewal probability
+\arguments{
+\item{x}{Integer loyalty score (typically the sum of two 1-5 cluster
+memberships, so 2-10). Values outside 1-10 fall back to a coin flip.}
+
+\item{renew}{Length-two vector of outcome labels, \code{c(renew, not_renew)} (the
+book uses \code{c("r", "nr")}).}
 }
+\value{
+One element of \code{renew}, drawn with a probability that increases with
+\code{x}.
+}
+\description{
+Maps an integer loyalty score to a renew/not-renew outcome: the higher the
+score, the more likely the account renews. Used inside
+\code{\link[=f_renewal_assignment]{f_renewal_assignment()}} to turn clustering output into a renewal label.
+}
+\details{
+Set the seed once in the caller for reproducibility. The renewal probability
+rises from about 1\% at \code{x = 2} to roughly 99\% at \code{x = 10}.
+}
+\examples{
+set.seed(1)
+f_assign_renewal(10, c("r", "nr"))
+f_assign_renewal(2, c("r", "nr"))
+
+}
+\seealso{
+Other lead_scoring: 
+\code{\link{f_calculate_spend}()},
+\code{\link{f_calculate_tenure}()},
+\code{\link{f_calculate_ticket_use}()},
+\code{\link{f_create_lead_scoring_data}()},
+\code{\link{f_renewal_assignment}()}
+}
+\concept{lead_scoring}

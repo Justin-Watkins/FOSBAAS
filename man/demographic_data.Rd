@@ -3,33 +3,55 @@
 \docType{data}
 \name{demographic_data}
 \alias{demographic_data}
-\title{demographic_data}
+\title{Customer demographic data}
 \format{
-A data frame with 200000 rows and 13 variables:
+A data frame with 200,000 rows and 14 variables:
 \describe{
-  \item{\code{custID}}{character Id from ticketing database}
-  \item{\code{nameF}}{character First name}
-  \item{\code{nameL}}{character Last name}
-  \item{\code{nameFull}}{character Full name}
-  \item{\code{gender}}{character gender}
-  \item{\code{age}}{double age}
-  \item{\code{latitude}}{double geographic latitude}
-  \item{\code{longitude}}{double geographic longitude}
-  \item{\code{distance}}{double distance from arena}
-  \item{\code{maritalStatus}}{character married}
-  \item{\code{ethnicity}}{character ethnicity}
-  \item{\code{children}}{character children}
-  \item{\code{hhIncome}}{double household income scaled}
-  \item{\code{county}}{character state,county}
+\item{custID}{character; ID from the ticketing database.}
+\item{nameF}{character; first name.}
+\item{nameL}{character; last name.}
+\item{nameFull}{character; full name.}
+\item{gender}{character; \code{"m"} or \code{"f"}.}
+\item{age}{numeric; age in years.}
+\item{latitude}{numeric; geographic latitude.}
+\item{longitude}{numeric; geographic longitude.}
+\item{distance}{numeric; distance from the venue, in miles.}
+\item{maritalStatus}{character; \code{"m"} (married) or \code{"s"} (single).}
+\item{ethnicity}{character; ethnicity code (\code{"w"}, \code{"aa"}, \code{"h"}, \code{"a"}).}
+\item{children}{character; \code{"y"} or \code{"n"}.}
+\item{hhIncome}{numeric; household income on a scaled axis.}
+\item{county}{character; \code{"state,county"} derived from the coordinates.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch5_ch7_demographic_data.R}.
 }
 \usage{
 demographic_data
 }
 \description{
-Replicates demographic information purchased on customers
+Third-party demographic attributes appended to the customer base, of the kind
+a club might purchase to enrich its ticketing records.
 }
 \details{
-Demographic data purchased from third parties takes this form
+The simulation columns are produced by \code{\link[=f_build_demographic_data]{f_build_demographic_data()}};
+the \code{county} column is appended from the coordinates during data assembly.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

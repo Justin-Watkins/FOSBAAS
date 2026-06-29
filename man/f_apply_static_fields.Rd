@@ -2,13 +2,49 @@
 % Please edit documentation in R/f_apply_static_fields.R
 \name{f_apply_static_fields}
 \alias{f_apply_static_fields}
-\title{f_apply_static_fields}
+\title{Derive calendar-based schedule fields}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_apply_static_fields.R}
 }
 \usage{
 f_apply_static_fields(date)
 }
-\description{
-Determine which team is played
+\arguments{
+\item{date}{A vector of dates (or ISO date strings) for the season's games.}
 }
+\value{
+A named list with seven elements, suitable for assigning straight
+into a season frame:
+\describe{
+\item{\code{gameNumber}}{integer game order, \code{1:81};}
+\item{\code{dayOfWeek}}{abbreviated weekday name, e.g. \code{"Sun"};}
+\item{\code{month}}{abbreviated month name, e.g. \code{"Mar"};}
+\item{\code{weekEnd}}{\code{TRUE} on Friday/Saturday;}
+\item{\code{schoolInOut}}{\code{TRUE} in June/July (school out);}
+\item{\code{openingDay}}{\code{TRUE} for game 1;}
+\item{\code{season}}{the four-digit season year.}
+}
+}
+\description{
+From a vector of game dates, derives the deterministic ("static") schedule
+columns that depend only on the calendar: game number, day of week, month,
+weekend flag, school-in-session flag, opening-day flag and season year.
+}
+\examples{
+dates <- unlist(f_create_dates(seed = 309, season_year = 2024))
+fields <- f_apply_static_fields(dates)
+fields$dayOfWeek[1:5]
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

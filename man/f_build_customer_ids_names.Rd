@@ -2,13 +2,48 @@
 % Please edit documentation in R/f_build_customer_ids_names.R
 \name{f_build_customer_ids_names}
 \alias{f_build_customer_ids_names}
-\title{f_build_customer_ids_names}
+\title{Build a table of customer IDs and names}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_customer_ids_names.R}
 }
 \usage{
 f_build_customer_ids_names(seed, num_rows = 2e+05)
 }
-\description{
-Build a list of customers with names
+\arguments{
+\item{seed}{Integer seed; makes the IDs and names reproducible.}
+
+\item{num_rows}{Number of customers to generate; defaults to \code{200000}.}
 }
+\value{
+A data frame with \code{num_rows} rows and the columns \code{custID}, \code{nameF}
+(first name), \code{nameL} (last name) and \code{nameFull} (\code{"first last"}).
+}
+\description{
+Creates a table of synthetic customers, each with a random 12-character
+alphanumeric account ID and a randomly assigned first and last name drawn
+from common US name lists. It is the starting point for
+\code{\link[=f_build_demographic_data]{f_build_demographic_data()}}.
+}
+\details{
+First names are sampled uniformly from a combined list of common male and
+female given names and last names from a list of common surnames. Earlier
+versions built the full cartesian product of names before sampling; this
+version samples the two name parts independently, which gives the same
+uniform distribution far more cheaply.
+}
+\examples{
+head(f_build_customer_ids_names(seed = 755, num_rows = 10))
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

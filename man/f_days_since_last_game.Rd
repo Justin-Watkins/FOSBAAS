@@ -2,13 +2,40 @@
 % Please edit documentation in R/f_days_since_last_game.R
 \name{f_days_since_last_game}
 \alias{f_days_since_last_game}
-\title{f_days_since_last_game}
+\title{Days since the previous home game}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_days_since_last_game.R}
 }
 \usage{
 f_days_since_last_game(dates)
 }
-\description{
-Calculate the number of days since a game was played
+\arguments{
+\item{dates}{An ordered vector of dates (or ISO date strings).}
 }
+\value{
+An integer vector the same length as \code{dates}. The first element is
+\code{50} (a sentinel standing in for the long off-season before opening day);
+each later element is the number of days since the previous game.
+}
+\description{
+For an ordered vector of game dates, returns the gap in days between each game
+and the one before it. This "rest" gap is one of the drivers of attendance in
+\code{\link[=f_attend_coefficient]{f_attend_coefficient()}}.
+}
+\examples{
+dates <- unlist(f_create_dates(seed = 309, season_year = 2024))
+head(f_days_since_last_game(dates))
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

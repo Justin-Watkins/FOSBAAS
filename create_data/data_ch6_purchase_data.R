@@ -1,9 +1,17 @@
 #-----------------------------------------------------------------
-# purchase data set
+# purchase / ticket-activity data  (used in Chapter 6)
 #
-# This data set approximates a purchases by class and is used to create other data sets
-#
+# Simulates per-game seat purchases by ticket class (single, group, season) and
+# writes one activity file per game to ticket_activity/. These files are the
+# input to the secondary-market pipeline (data_ch6_secondary_data.R). This is a
+# long-running bespoke pipeline with no package-function equivalent, so the
+# logic is preserved; it is guarded by `if (FALSE)` so it does not run on
+# source. Requires season_data, season_ticket_holders, manifest_data and
+# customer_data in data-raw/. Set the guard to TRUE (and `library(dplyr)`) to
+# regenerate.
 #-----------------------------------------------------------------
+
+library(dplyr)
 
 #-----------------------------------------------------------------
 # BEGIN simulate purchases

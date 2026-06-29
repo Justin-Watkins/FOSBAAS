@@ -3,29 +3,51 @@
 \docType{data}
 \name{customer_renewals}
 \alias{customer_renewals}
-\title{customer_renewals}
+\title{Season-ticket renewal data}
 \format{
-A data frame with 13706 rows and 10 variables:
+A data frame with 13,706 rows and 10 variables:
 \describe{
-  \item{\code{accountID}}{character customer account id}
-  \item{\code{corporate}}{character is it a corporation}
-  \item{\code{season}}{double season id}
-  \item{\code{planType}}{character type of ticket purchased}
-  \item{\code{ticketUsage}}{double percentage of tickets used}
-  \item{\code{tenure}}{double years as a customer}
-  \item{\code{spend}}{double amount spend to tickets}
-  \item{\code{tickets}}{double number of tickets purchased}
-  \item{\code{distance}}{double distance from arena}
-  \item{\code{renewed}}{character did the customer renew their seats}
+\item{accountID}{character; customer account ID.}
+\item{corporate}{character; \code{"c"} (corporate) or \code{"i"} (individual).}
+\item{season}{numeric; season year.}
+\item{planType}{character; \code{"f"} (full) or \code{"p"} (partial).}
+\item{ticketUsage}{numeric; share of tickets used (0-1).}
+\item{tenure}{numeric; years as a customer.}
+\item{spend}{numeric; amount spent on tickets.}
+\item{tickets}{numeric; number of tickets held.}
+\item{distance}{numeric; distance from the venue, in miles.}
+\item{renewed}{character; \code{"r"} (renewed) or \code{"nr"} (not renewed).}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch7_customer_renewal.R}.
 }
 \usage{
 customer_renewals
 }
 \description{
-Simulates data for calculating renewal likelihood
+Account-level features for season-ticket holders together with whether they
+renewed, used for lead-scoring and renewal-likelihood models.
 }
 \details{
-This data would be transformed from many sources
+Built by transforming several sources; see
+\code{\link[=f_create_lead_scoring_data]{f_create_lead_scoring_data()}}.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

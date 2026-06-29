@@ -2,26 +2,54 @@
 % Please edit documentation in R/f_get_scans.R
 \name{f_get_scans}
 \alias{f_get_scans}
-\title{f_get_scans}
+\title{Predict a scan count from a fitted curve}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_get_scans.R}
 }
 \usage{
-f_get_scans(new_time, zero_1, zero_2)
+f_get_scans(new_time, zero_1, zero_2, fit)
 }
 \arguments{
-\item{new_time}{y2 value for point slope formula}
+\item{new_time}{The time (minute index) to predict a scan count for.}
 
-\item{zero_1}{starting point}
+\item{zero_1}{Start of the main arrival window; before it, counts are low.}
 
-\item{zero_2}{end point}
+\item{zero_2}{End of the main arrival window; after it, counts are low.}
+
+\item{fit}{A fitted quadratic model (e.g. from \code{\link[stats:lm]{stats::lm()}}) whose first
+three coefficients are intercept, linear and quadratic terms.}
 }
 \value{
-Scan value
+A single non-negative whole-number scan count.
 }
 \description{
-Return scans values. This function only works with fit values.
+Returns a noisy scan count at a given time using a fitted quadratic model,
+with flat low-level counts outside the main arrival window. It is a teaching
+helper that shows how a fitted model can drive a simulation.
 }
+\section{Bug fix}{
+
+The model is now passed in as the \code{fit} argument. The previous version
+referred to a global variable named \code{fit}, so it only worked if such an
+object happened to exist in the caller's environment.
+}
+
 \examples{
-f_get_scans(2,0,300)
+obs <- 1:300
+shape <- data.frame(t = obs, scans = -0.01 * (obs - 150)^2 + 200)
+fit <- lm(scans ~ t + I(t^2), data = shape)
+set.seed(1)
+f_get_scans(new_time = 150, zero_1 = 0, zero_2 = 300, fit = fit)
+
 }
+\seealso{
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()},
+\code{\link{f_simulate_distribution}()}
+}
+\concept{operations}

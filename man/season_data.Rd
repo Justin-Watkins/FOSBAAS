@@ -3,31 +3,53 @@
 \docType{data}
 \name{season_data}
 \alias{season_data}
-\title{season_data}
+\title{Simulated season schedule and sales}
 \format{
 A data frame with 243 rows and 12 variables:
 \describe{
-  \item{\code{gameNumber}}{double game order}
-  \item{\code{team}}{character away team}
-  \item{\code{date}}{double game date}
-  \item{\code{dayOfWeek}}{character day of the week}
-  \item{\code{month}}{character month of event}
-  \item{\code{weekEnd}}{logical was it a weekend}
-  \item{\code{schoolInOut}}{logical were children in school}
-  \item{\code{daysSinceLastGame}}{double days since last game was played}
-  \item{\code{openingDay}}{logical is it opening day}
-  \item{\code{promotion}}{character was there a promotion}
-  \item{\code{ticketSales}}{double total tickets sold}
-  \item{\code{season}}{double year of season}
+\item{gameNumber}{numeric; game order within the season.}
+\item{team}{character; opponent abbreviation.}
+\item{date}{Date; game date.}
+\item{dayOfWeek}{character; abbreviated weekday, e.g. \code{"Sun"}.}
+\item{month}{character; abbreviated month, e.g. \code{"Mar"}.}
+\item{weekEnd}{logical; was it a weekend game?}
+\item{schoolInOut}{logical; were children out of school?}
+\item{daysSinceLastGame}{numeric; days since the previous home game.}
+\item{openingDay}{logical; was it opening day?}
+\item{promotion}{character; promotion type or \code{"none"}.}
+\item{ticketSales}{numeric; total tickets sold (capped at venue capacity).}
+\item{season}{numeric; season year.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch3_ch6_ch8_season_data.R}.
 }
 \usage{
 season_data
 }
 \description{
-Simulates data aggregated for schedule comparisons
+Three seasons of home games with schedule attributes and simulated ticket
+sales, aggregated for schedule and promotion analysis.
 }
 \details{
-This data would be aggregated to perform regression analysis on schedules
+The kind of table you would aggregate to run a regression on a
+schedule. See \code{\link[=f_build_season]{f_build_season()}}.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

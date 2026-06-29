@@ -2,13 +2,54 @@
 % Please edit documentation in R/f_demographics_income.R
 \name{f_demographics_income}
 \alias{f_demographics_income}
-\title{f_demographics_income}
+\title{Simulate household income for one customer}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_demographics_income.R}
 }
 \usage{
 f_demographics_income(married, gender, age, age_low, age_high)
 }
-\description{
-Determine the household income of the fan
+\arguments{
+\item{married}{Marital status, \code{"m"} or \code{"s"}.}
+
+\item{gender}{Gender, \code{"m"} or \code{"f"}.}
+
+\item{age}{Customer age in years.}
+
+\item{age_low}{Lower age-band cut point (e.g. the 30th percentile of age).}
+
+\item{age_high}{Upper age-band cut point (e.g. the 60th percentile of age).}
 }
+\value{
+A single non-negative rounded numeric value: the (scaled) household
+income. Married men and older customers skew toward the higher levels.
+}
+\description{
+Draws a (scaled) household-income figure for a single customer. A base income
+level is chosen from a discrete set with probabilities that depend on marital
+status, gender and which age band the customer falls into, then jittered with
+a small normal draw. Designed to be called row-wise when building
+\link{demographic_data}.
+}
+\details{
+The values are deliberately on an arbitrary scaled axis rather than dollars.
+Set the seed once in the caller for reproducibility.
+}
+\examples{
+set.seed(700)
+f_demographics_income(married = "m", gender = "m", age = 50,
+                      age_low = 35, age_high = 52)
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_determine_gender}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

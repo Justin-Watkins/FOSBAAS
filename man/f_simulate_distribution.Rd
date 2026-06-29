@@ -2,19 +2,52 @@
 % Please edit documentation in R/f_simulate_distribution.R
 \name{f_simulate_distribution}
 \alias{f_simulate_distribution}
-\title{f_simulate_distribution}
+\title{Simulate values from an empirical distribution}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_simulate_distribution.R}
 }
 \usage{
 f_simulate_distribution(observation, rand, seeds = 1)
 }
+\arguments{
+\item{observation}{A numeric vector of observed values to learn the
+distribution from.}
+
+\item{rand}{Number of simulated values to draw.}
+
+\item{seeds}{Integer seed. The default of \code{1} is a sentinel meaning "pick a
+random seed"; pass any other value for reproducible output.}
+}
 \value{
-Gets Wait time
+A numeric vector of \code{rand} simulated values.
 }
 \description{
-Simulates wait time distribution
+Fits a cubic curve to the empirical frequency distribution of an observed
+variable and uses it to draw new simulated values. The book uses it to grow a
+small set of observed wait times into a larger simulated sample.
+}
+\details{
+The empirical distribution is built with \code{\link[=f_build_freq_table]{f_build_freq_table()}}, a cubic is
+fitted to it, and values are read off the curve with
+\code{\link[=f_get_third_degree_fit]{f_get_third_degree_fit()}} at uniformly random frequencies.
 }
 \examples{
-f_simulate_distribution()
+set.seed(42)
+obs <- sample(0:50, size = 500, replace = TRUE)
+sim <- f_simulate_distribution(observation = obs, rand = 100, seeds = 42)
+summary(sim)
+
 }
+\seealso{
+\code{\link[=f_build_freq_table]{f_build_freq_table()}}, \code{\link[=f_get_third_degree_fit]{f_get_third_degree_fit()}}
+
+Other operations: 
+\code{\link{f_calc_scans}()},
+\code{\link{f_get_MMKN}()},
+\code{\link{f_get_line_length}()},
+\code{\link{f_get_scan_data}()},
+\code{\link{f_get_scans}()},
+\code{\link{f_get_third_degree_fit}()},
+\code{\link{f_get_wait_times}()}
+}
+\concept{operations}

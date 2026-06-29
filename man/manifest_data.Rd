@@ -3,27 +3,49 @@
 \docType{data}
 \name{manifest_data}
 \alias{manifest_data}
-\title{manifest_data}
+\title{Seating-manifest and pricing data}
 \format{
-A data frame with 44705 rows and 8 variables:
+A data frame with 44,705 rows and 8 variables:
 \describe{
-  \item{\code{seatID}}{double unique id of seat}
-  \item{\code{section}}{double section id}
-  \item{\code{sectionNumber}}{double section number}
-  \item{\code{rowNumber}}{double row number}
-  \item{\code{seatNumber}}{double seat number}
-  \item{\code{seasonPrice}}{double current season price}
-  \item{\code{groupPrice}}{double current group price}
-  \item{\code{singlePrice}}{double single game price}
+\item{seatID}{numeric; unique seat ID.}
+\item{section}{numeric; section ID.}
+\item{sectionNumber}{numeric; section number.}
+\item{rowNumber}{numeric; row number.}
+\item{seatNumber}{numeric; seat number.}
+\item{seasonPrice}{numeric; current season-ticket price.}
+\item{groupPrice}{numeric; current group price.}
+\item{singlePrice}{numeric; single-game price.}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch7_manifest_data.R}.
 }
 \usage{
 manifest_data
 }
 \description{
-Data to simulate manifest data from a ticketing system
+A seating manifest for the venue with the price of each seat under three
+selling models.
 }
 \details{
-This data has been transformed and won't typically look like this
+A transformed view of seating data; real manifests rarely look this
+tidy.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{secondary_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

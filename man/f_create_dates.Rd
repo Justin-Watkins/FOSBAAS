@@ -2,13 +2,48 @@
 % Please edit documentation in R/f_create_dates.R
 \name{f_create_dates}
 \alias{f_create_dates}
-\title{f_create_dates}
+\title{Simulate a home-game schedule of dates}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_create_dates.R}
 }
 \usage{
 f_create_dates(seed, season_year)
 }
-\description{
-Build a series of dates
+\arguments{
+\item{seed}{Integer seed; makes the schedule reproducible.}
+
+\item{season_year}{Four-digit year (numeric or character) used to anchor the
+calendar, e.g. \code{2024}.}
 }
+\value{
+A list of 81 character dates (\code{"YYYY-MM-DD"}), in chronological order.
+}
+\description{
+Builds a plausible sequence of 81 home-game dates for a single season by
+stringing together home stands (series of 3, 6 or 9 games) separated by road
+trips (gaps of 3, 7 or 10 days), all drawn at random between late March and
+early October.
+}
+\details{
+Home-stand lengths are sampled from \code{c(3, 6, 9)} and off-day gaps from
+\code{c(3, 7, 10)}, each with fixed probabilities. The season always opens on the
+first eligible date (March 27 of \code{season_year}).
+}
+\examples{
+dates <- f_create_dates(seed = 309, season_year = 2024)
+length(dates)
+unlist(dates[1:5])
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

@@ -2,13 +2,39 @@
 % Please edit documentation in R/f_determine_gender.R
 \name{f_determine_gender}
 \alias{f_determine_gender}
-\title{f_determine_gender}
+\title{Infer gender from a first name}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_determine_gender.R}
 }
 \usage{
 f_determine_gender(f_name)
 }
-\description{
-Determine gender by using first names
+\arguments{
+\item{f_name}{A single first name (character string).}
 }
+\value{
+\code{"f"} if the name is in the female-name list, otherwise \code{"m"}.
+}
+\description{
+Classifies a first name as female (\code{"f"}) or male (\code{"m"}) by checking it
+against a list of common female names. Anything not on the list is treated as
+male. This is a deliberately crude rule used only to attach a gender field to
+the simulated customers.
+}
+\examples{
+f_determine_gender("Mary")
+f_determine_gender("Robert")
+
+}
+\seealso{
+Other demographic_simulation: 
+\code{\link{f_build_customer_ids_names}()},
+\code{\link{f_build_demographic_data}()},
+\code{\link{f_demographics_children}()},
+\code{\link{f_demographics_ethnicity}()},
+\code{\link{f_demographics_income}()},
+\code{\link{f_demographics_married}()},
+\code{\link{f_get_age}()},
+\code{\link{f_get_distance}()}
+}
+\concept{demographic_simulation}

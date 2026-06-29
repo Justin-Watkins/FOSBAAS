@@ -2,9 +2,9 @@
 % Please edit documentation in R/f_attend_coefficient.R
 \name{f_attend_coefficient}
 \alias{f_attend_coefficient}
-\title{f_attend_coefficient}
+\title{Build an attendance multiplier for a single game}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_attend_coefficient.R}
 }
 \usage{
 f_attend_coefficient(
@@ -13,10 +13,61 @@ f_attend_coefficient(
   school_out,
   lag,
   opening_day,
-  promotion,
-  seed
+  promotion
 )
 }
-\description{
-Buikd a term to modify ticket sales
+\arguments{
+\item{opponent}{Three-letter opponent abbreviation (see
+\code{\link[=f_select_team_for_series]{f_select_team_for_series()}}).}
+
+\item{week_end}{Logical; is the game on a Friday or Saturday?}
+
+\item{school_out}{Logical; is school out (June/July)?}
+
+\item{lag}{Days since the previous home game (see \code{\link[=f_days_since_last_game]{f_days_since_last_game()}}).}
+
+\item{opening_day}{Logical; is this opening day?}
+
+\item{promotion}{Promotion label: \code{"concert"}, \code{"bobblehead"}, \code{"other"} or
+\code{"none"}.}
 }
+\value{
+A single numeric multiplier (1 plus the sum of the demand boosts).
+}
+\description{
+Returns a multiplier, centred near 1, that scales baseline ticket sales up or
+down for one game according to how attractive it is: marquee opponents,
+weekends, summer (school out), long rest, opening day and promotions all add
+demand. \code{\link[=f_build_season]{f_build_season()}} applies this multiplier to every game.
+}
+\details{
+Each contribution is a small normal draw, so the caller must set the seed
+before invoking this function (for example inside a \code{mapply()} over a
+season). Opponents are tiered: \code{BOS/CHC/NYY/LAD/STL} add the most, then
+\code{LAA/HOU/NYM/SF/PHI}, while all other clubs add nothing.
+}
+\section{Bug fixes}{
+
+Removed the per-row \code{set.seed()} (seeding inside a row-wise call collapsed the
+randomness), the no-op \code{mod == mod + 0} branch, and the misspelt \code{"BAl"}
+opponent code.
+}
+
+\examples{
+set.seed(309)
+f_attend_coefficient("NYY", week_end = TRUE, school_out = TRUE,
+                     lag = 3, opening_day = FALSE, promotion = "bobblehead")
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

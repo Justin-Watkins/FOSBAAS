@@ -2,7 +2,7 @@
 % Please edit documentation in R/f_define_line.R
 \name{f_define_line}
 \alias{f_define_line}
-\title{f_define_line}
+\title{Evaluate a straight line defined by two points}
 \source{
 \url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_define_line.R}
 }
@@ -10,22 +10,38 @@
 f_define_line(y2, y1, x2, x1, x)
 }
 \arguments{
-\item{y2}{y2 value for point slope formula}
+\item{y2}{The \code{y} coordinate of the second point.}
 
-\item{y1}{y1 value for point slope formula}
+\item{y1}{The \code{y} coordinate of the first point.}
 
-\item{x2}{x2 value for point slope formula}
+\item{x2}{The \code{x} coordinate of the second point.}
 
-\item{x1}{x1 value for point slope formula}
+\item{x1}{The \code{x} coordinate of the first point.}
 
-\item{x}{x value for line}
+\item{x}{The \code{x} value at which to evaluate the line.}
 }
 \value{
-Y value for defined line
+A numeric value: the height of the line at \code{x}.
 }
 \description{
-Illustrative point slope formula
+Given two points \verb{(x1, y1)} and \verb{(x2, y2)}, this computes the slope and
+intercept of the line through them and returns the height of that line at an
+arbitrary \code{x}. It is used in the book to illustrate the point-slope form of a
+linear equation.
+}
+\details{
+The slope is \code{m = (y2 - y1) / (x2 - x1)}, the intercept is \code{b = y2 - m * x2},
+and the returned value is \code{m * x + b}.
 }
 \examples{
-f_define_line(0,10,0,10,2)
+f_define_line(y2 = 10, y1 = 0, x2 = 10, x1 = 0, x = 2)
+
 }
+\seealso{
+Other utilities: 
+\code{\link{f_add_zero}()},
+\code{\link{f_build_freq_table}()},
+\code{\link{f_get_miles_NV}()},
+\code{\link{f_get_time_observations}()}
+}
+\concept{utilities}

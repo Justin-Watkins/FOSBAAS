@@ -3,28 +3,50 @@
 \docType{data}
 \name{secondary_data}
 \alias{secondary_data}
-\title{secondary_data}
+\title{Secondary-market ticket sales}
 \format{
-A data frame with 853444 rows and 9 variables:
+A data frame with 853,444 rows and 9 variables:
 \describe{
-  \item{\code{seatID}}{double manifest id of the seat}
-  \item{\code{custID}}{character customer who purchased the tickets}
-  \item{\code{ticketType}}{character single, season, group}
-  \item{\code{gameID}}{double id of game purchased}
-  \item{\code{tickets}}{double number of tickets purchased}
-  \item{\code{priceKey}}{character seat and ticket type to match price}
-  \item{\code{price}}{double original price of ticket}
-  \item{\code{orderedCluster}}{double clustered ticket spend}
-  \item{\code{secondayrPrice}}{double Price paid on secondary market}
+\item{seatID}{numeric; manifest ID of the seat.}
+\item{custID}{character; purchasing customer.}
+\item{ticketType}{character; \code{"si"} (single), \code{"se"} (season) or \code{"gr"} (group).}
+\item{gameID}{numeric; ID of the game.}
+\item{tickets}{numeric; number of tickets in the transaction.}
+\item{priceKey}{character; seat-and-type key used to look up price.}
+\item{price}{numeric; original (primary) ticket price.}
+\item{orderedCluster}{numeric; clustered spend band.}
+\item{secondayrPrice}{numeric; price paid on the secondary market. (The
+column name retains its original spelling.)}
 }
+}
+\source{
+Simulated for the book. See \code{create_data/data_ch6_secondary_data.R}.
 }
 \usage{
 secondary_data
 }
 \description{
-Simulates processed data from secondary market sales
+Processed secondary-market (resale) transactions, joining each sold seat to
+its original price and the price paid on the secondary market.
 }
 \details{
-It may be impossible to obtain this data
+In practice this data can be hard or impossible to obtain.
 }
+\seealso{
+Other datasets: 
+\code{\link{aggregated_crm_data}},
+\code{\link{customer_data}},
+\code{\link{customer_renewals}},
+\code{\link{demographic_data}},
+\code{\link{fa_survey_data}},
+\code{\link{freq_table_data}},
+\code{\link{freq_table_data_bin}},
+\code{\link{manifest_data}},
+\code{\link{perceptual_data}},
+\code{\link{scan_data}},
+\code{\link{season_data}},
+\code{\link{wait_times_data}},
+\code{\link{wait_times_distribution_data}}
+}
+\concept{datasets}
 \keyword{datasets}

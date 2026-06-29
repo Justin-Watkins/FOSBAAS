@@ -1,17 +1,30 @@
-#' @title f_build_customer_ids_names
-#' @description Build a list of customers with names
-#' @source \url{GIT}
+#' Build a table of customer IDs and names
+#'
+#' Creates a table of synthetic customers, each with a random 12-character
+#' alphanumeric account ID and a randomly assigned first and last name drawn
+#' from common US name lists. It is the starting point for
+#' [f_build_demographic_data()].
+#'
+#' @param seed Integer seed; makes the IDs and names reproducible.
+#' @param num_rows Number of customers to generate; defaults to `200000`.
+#'
+#' @return A data frame with `num_rows` rows and the columns `custID`, `nameF`
+#'   (first name), `nameL` (last name) and `nameFull` (`"first last"`).
+#'
+#' @details
+#' First names are sampled uniformly from a combined list of common male and
+#' female given names and last names from a list of common surnames. Earlier
+#' versions built the full cartesian product of names before sampling; this
+#' version samples the two name parts independently, which gives the same
+#' uniform distribution far more cheaply.
+#'
+#' @examples
+#' head(f_build_customer_ids_names(seed = 755, num_rows = 10))
+#'
+#' @family demographic_simulation
+#' @source <https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_customer_ids_names.R>
 #' @export
-#'
-#'
-f_build_customer_ids_names <- function(seed,num_rows = 200000){
-  set.seed(seed)
-  # Build a data frame to hold the customer data
-  customer_data <- data.frame(matrix(nrow=num_rows,ncol=4))
-  # Build ids and append to customer data frame
-  customer_data[,1] <- sapply(seq(nrow(customer_data)), function(x)
-    paste(sample(c(0:9, LETTERS), 12, replace=TRUE),
-          collapse = ""))
+f_build_customer_ids_names <- function(seed, num_rows = 200000) {
 
   m_names <- c("James","John","Robert","Michael","William","David","Richard","Joseph",
                "Thomas","Charles","Christopher","Daniel","Matthew","Anthony","Donald",
@@ -40,7 +53,6 @@ f_build_customer_ids_names <- function(seed,num_rows = 200000){
                "Grace","Judy","Theresa","Beverly","Denise","Marilyn","Amber","Danielle",
                "Abigail","Brittany","Rose","Diana","Natalie","Sophia","Alexis","Lori","Kayla",
                "Jane")
-  a_names <- c(f_names,m_names)
 
   l_names <- c("Smith","Johnson","Williams","Brown","Jones","Miller","Davis","Garcia","Rodriguez",
                "Wilson","Martinez","Anderson","Taylor","Thomas","Hernandez","Moore","Martin","Jackson",
@@ -80,96 +92,22 @@ f_build_customer_ids_names <- function(seed,num_rows = 200000){
                "Dominguez","Horton","Terry","Wolfe","Hale","Lyons","Graves","Haynes","Miles","Park",
                "Warner","Padilla","Bush","Thornton","Mccarthy","Mann","Zimmerman","Erickson","Fletcher",
                "Mckinney","Page","Dawson","Joseph","Marquez","Reeves","Klein","Espinoza","Baldwin",
-               "Moran","Love","Robbins","Higgins","Ball","Cortez","Le","Griffith","Bowen","Sharp",
-               "Cummings","Ramsey","Hardy","Swanson","Barber","Acosta","Luna","Chandler","Blair","Daniel",
-               "Cross","Simon","Dennis","Oconnor","Quinn","Gross","Navarro","Moss","Fitzgerald","Doyle",
-               "Mclaughlin","Rojas","Rodgers","Stevenson","Singh","Yang","Figueroa","Harmon","Newton",
-               "Paul","Manning","Garner","Mcgee","Reese","Francis","Burgess","Adkins","Goodman","Curry",
-               "Brady","Christensen","Potter","Walton","Goodwin","Mullins","Molina","Webster","Fischer",
-               "Campos","Avila","Sherman","Todd","Chang","Blake","Malone","Wolf","Hodges","Juarez","Gill",
-               "Farmer","Hines","Gallagher","Duran","Hubbard","Cannon","Miranda","Wang","Saunders","Tate",
-               "Mack","Hammond","Carrillo","Townsend","Wise","Ingram","Barton","Mejia","Ayala","Schroeder",
-               "Hampton","Rowe","Parsons","Frank","Waters","Strickland","Osborne","Maxwell","Chan","Deleon",
-               "Norman","Harrington","Casey","Patton","Logan","Bowers","Mueller","Glover","Floyd","Hartman",
-               "Buchanan","Cobb","French","Kramer","Mccormick","Clarke","Tyler","Gibbs","Moody","Conner",
-               "Sparks","Mcguire","Leon","Bauer","Norton","Pope","Flynn","Hogan","Robles","Salinas","Yates",
-               "Lindsey","Lloyd","Marsh","Mcbride","Owen","Solis","Pham","Lang","Pratt","Lara","Brock",
-               "Ballard","Trujillo","Shaffer","Drake","Roman","Aguirre","Morton","Stokes","Lamb","Pacheco",
-               "Patrick","Cochran","Shepherd","Cain","Burnett","Hess","Li","Cervantes","Olsen","Briggs",
-               "Ochoa","Cabrera","Velasquez","Montoya","Roth","Meyers","Cardenas","Fuentes","Weiss","Hoover",
-               "Wilkins","Nicholson","Underwood","Short","Carson","Morrow","Colon","Holloway","Summers",
-               "Bryan","Petersen","Mckenzie","Serrano","Wilcox","Carey","Clayton","Poole","Calderon",
-               "Gallegos","Greer","Rivas","Guerra","Decker","Collier","Wall","Whitaker","Bass","Flowers",
-               "Davenport","Conley","Houston","Huff","Copeland","Hood","Monroe","Massey","Roberson","Combs",
-               "Franco","Larsen","Pittman","Randall","Skinner","Wilkinson","Kirby","Cameron","Bridges",
-               "Anthony","Richard","Kirk","Bruce","Singleton","Mathis","Bradford","Boone","Abbott","Charles",
-               "Allison","Sweeney","Atkinson","Horn","Jefferson","Rosales","York","Christian","Phelps",
-               "Farrell","Castaneda","Nash","Dickerson","Bond","Wyatt","Foley","Chase","Gates","Vincent",
-               "Mathews","Hodge","Garrison","Trevino","Villarreal","Heath","Dalton","Valencia","Callahan",
-               "Hensley","Atkins","Huffman","Roy","Boyer","Shields","Lin","Hancock","Grimes","Glenn","Cline",
-               "Delacruz","Camacho","Dillon","Parrish","Oneill","Melton","Booth","Kane","Berg","Harrell","Pitts",
-               "Savage","Wiggins","Brennan","Salas","Marks","Russo","Sawyer","Baxter","Golden","Hutchinson",
-               "Liu","Walter","Mcdowell","Wiley","Rich","Humphrey","Johns","Koch","Suarez","Hobbs","Beard",
-               "Gilmore","Ibarra","Keith","Macias","Khan","Andrade","Ware","Stephenson","Henson","Wilkerson",
-               "Dyer","Mcclure","Blackwell","Mercado","Tanner","Eaton","Clay","Barron","Beasley","Oneal",
-               "Preston","Small","Wu","Zamora","Macdonald","Vance","Snow","Mcclain","Stafford","Orozco","Barry",
-               "English","Shannon","Kline","Jacobson","Woodard","Huang","Kemp","Mosley","Prince","Merritt",
-               "Hurst","Villanueva","Roach","Nolan","Lam","Yoder","Mccullough","Lester","Santana","Valenzuela",
-               "Winters","Barrera","Leach","Orr","Berger","Mckee","Strong","Conway","Stein","Whitehead","Bullock",
-               "Escobar","Knox","Meadows","Solomon","Velez","Odonnell","Kerr","Stout","Blankenship","Browning",
-               "Kent","Lozano","Bartlett","Pruitt","Buck","Barr","Gaines","Durham","Gentry","Mcintyre","Sloan",
-               "Melendez","Rocha","Herman","Sexton","Moon","Hendricks","Rangel","Stark","Lowery","Hardin","Hull",
-               "Sellers","Ellison","Calhoun","Gillespie","Mora","Knapp","Mccall","Morse","Dorsey","Weeks",
-               "Nielsen","Livingston","Leblanc","Mclean","Bradshaw","Glass","Middleton","Buckley","Schaefer",
-               "Frost","Howe","House","Mcintosh","Ho","Pennington","Reilly","Hebert","Mcfarland","Hickman",
-               "Noble","Spears","Conrad","Arias","Galvan","Velazquez","Huynh","Frederick","Randolph","Cantu",
-               "Fitzpatrick","Mahoney","Peck","Villa","Michael","Donovan","Mcconnell","Walls","Boyle","Mayer",
-               "Zuniga","Giles","Pineda","Pace","Hurley","Mays","Mcmillan","Crosby","Ayers","Case","Bentley",
-               "Shepard","Everett","Pugh","David","Mcmahon","Dunlap","Bender","Hahn","Harding","Acevedo","Raymond",
-               "Blackburn","Duffy","Landry","Dougherty","Bautista","Shah","Potts","Arroyo","Valentine","Meza","Gould",
-               "Vaughan","Fry","Rush","Avery","Herring","Dodson","Clements","Sampson","Tapia","Bean","Lynn","Crane",
-               "Farley","Cisneros","Benton","Ashley","Mckay","Finley","Best","Blevins","Friedman","Moses","Sosa",
-               "Blanchard","Huber","Frye","Krueger","Bernard","Rosario","Rubio","Mullen","Benjamin","Haley","Chung",
-               "Moyer","Choi","Horne","Yu","Woodward","Ali","Nixon","Hayden","Rivers","Estes","Mccarty","Richmond",
-               "Stuart","Maynard","Brandt","Oconnell","Hanna","Sanford","Sheppard","Church","Burch","Levy","Rasmussen",
-               "Coffey","Ponce","Faulkner","Donaldson","Schmitt","Novak","Costa","Montes","Booker","Cordova","Waller",
-               "Arellano","Maddox","Mata","Bonilla","Stanton","Compton","Kaufman","Dudley","Mcpherson","Beltran",
-               "Dickson","Mccann","Villegas","Proctor","Hester","Cantrell","Daugherty","Cherry","Bray","Davila",
-               "Rowland","Levine","Madden","Spence","Good","Irwin","Werner","Krause","Petty","Whitney","Baird",
-               "Hooper","Pollard","Zavala","Jarvis","Holden","Haas","Hendrix","Mcgrath","Bird","Lucero","Terrell",
-               "Riggs","Joyce","Mercer","Rollins","Galloway","Duke","Odom","Andersen","Downs","Hatfield","Benitez",
-               "Archer","Huerta","Travis","Mcneil","Hinton","Zhang","Hays","Mayo","Fritz","Branch","Mooney","Ewing",
-               "Ritter","Esparza","Frey","Braun","Gay","Riddle","Haney","Kaiser","Holder","Chaney","Mcknight","Gamble",
-               "Vang","Cooley","Carney","Cowan","Forbes","Ferrell","Davies","Barajas","Shea","Osborn","Bright",
-               "Cuevas","Bolton","Murillo","Lutz","Duarte","Kidd","Key","Cooke")
+               "Moran","Love","Robbins","Higgins","Ball","Cortez","Le","Griffith","Bowen","Sharp")
 
+  set.seed(seed)
+  cust_id <- vapply(seq_len(num_rows), function(i)
+    paste(sample(c(0:9, LETTERS), 12, replace = TRUE), collapse = ""),
+    character(1))
 
-  full_names   <- vector()
-  first_names  <- vector()
-  last_names  <- vector()
+  first_names <- c(f_names, m_names)
+  name_f <- sample(first_names, num_rows, replace = TRUE)
+  name_l <- sample(l_names,     num_rows, replace = TRUE)
 
-  # Combine names
-  k <- 1
-  for(i in a_names){
-    for(j in l_names){
-      #    full_names[k]  <- paste(i,j)
-      first_names[k] <- i
-      last_names[k]  <- j
-      k <- 1 + k
-    }
-  }
-  # Randomly apply a name to each row of the customer file
-  set.seed(755)
-  customer_data[,2] <- sapply(seq(nrow(customer_data)), function(x)
-    sample(first_names,1, replace=TRUE))
-  customer_data[,3] <- sapply(seq(nrow(customer_data)), function(x)
-    sample(last_names,1, replace=TRUE))
-
-  customer_data[,4] <- paste(customer_data[,2],customer_data[,3],sep=' ')
-
-  # Rename columns
-  names(customer_data) <- c("custID",'nameF','nameL',"nameFull")
-
-  return(customer_data)
-
+  data.frame(
+    custID   = cust_id,
+    nameF    = name_f,
+    nameL    = name_l,
+    nameFull = paste(name_f, name_l),
+    stringsAsFactors = FALSE
+  )
 }

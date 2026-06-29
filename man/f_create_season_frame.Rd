@@ -2,13 +2,36 @@
 % Please edit documentation in R/f_create_season_frame.R
 \name{f_create_season_frame}
 \alias{f_create_season_frame}
-\title{f_create_season_frame}
+\title{Create an empty season schedule frame}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_create_season_frame.R}
 }
 \usage{
 f_create_season_frame()
 }
-\description{
-Build a season table
+\value{
+A data frame with 81 rows and 12 \code{NA}-filled columns: \code{gameNumber},
+\code{team}, \code{date}, \code{dayOfWeek}, \code{month}, \code{weekEnd}, \code{schoolInOut},
+\code{daysSinceLastGame}, \code{openingDay}, \code{promotion}, \code{ticketSales}, \code{season}.
 }
+\description{
+Returns an empty 81-row data frame with the columns \code{\link[=f_build_season]{f_build_season()}} fills
+in, one row per home game in a half-season. It exists so the column set and
+order live in a single place.
+}
+\examples{
+str(f_create_season_frame())
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_build_season}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}

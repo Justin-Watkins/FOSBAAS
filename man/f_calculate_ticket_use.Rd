@@ -2,13 +2,44 @@
 % Please edit documentation in R/f_calculate_ticket_use.R
 \name{f_calculate_ticket_use}
 \alias{f_calculate_ticket_use}
-\title{f_calculate_ticket_use}
+\title{Simulate the share of tickets used}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_calculate_ticket_use.R}
 }
 \usage{
 f_calculate_ticket_use(corporate, distance, avgDist)
 }
-\description{
-What percentage of tickets get used
+\arguments{
+\item{corporate}{Account type: \code{"c"} (corporate) or \code{"i"} (individual).}
+
+\item{distance}{Distance from the venue, in miles.}
+
+\item{avgDist}{Average distance across all accounts, used as the near/far
+threshold.}
 }
+\value{
+A single proportion between 0 and 1.
+}
+\description{
+Draws the fraction of an account's tickets that are actually used (scanned at
+the gate). Corporate accounts and customers close to the venue use a higher
+share. Designed to be called row-wise when building lead-scoring data with
+\code{\link[=f_create_lead_scoring_data]{f_create_lead_scoring_data()}}.
+}
+\details{
+Set the seed once in the caller for reproducibility.
+}
+\examples{
+set.seed(1)
+f_calculate_ticket_use(corporate = "c", distance = 10, avgDist = 25)
+
+}
+\seealso{
+Other lead_scoring: 
+\code{\link{f_assign_renewal}()},
+\code{\link{f_calculate_spend}()},
+\code{\link{f_calculate_tenure}()},
+\code{\link{f_create_lead_scoring_data}()},
+\code{\link{f_renewal_assignment}()}
+}
+\concept{lead_scoring}

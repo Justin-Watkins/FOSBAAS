@@ -2,9 +2,9 @@
 % Please edit documentation in R/f_build_season.R
 \name{f_build_season}
 \alias{f_build_season}
-\title{f_build_season}
+\title{Simulate a full season of home games}
 \source{
-\url{GIT}
+\url{https://github.com/Justin-Watkins/FOSBAAS/blob/master/R/f_build_season.R}
 }
 \usage{
 f_build_season(
@@ -22,6 +22,70 @@ f_build_season(
   sd_sales
 )
 }
-\description{
-Build season data
+\arguments{
+\item{seed1}{Seed for the schedule of dates (\code{\link[=f_create_dates]{f_create_dates()}}).}
+
+\item{season_year}{Four-digit season year, e.g. \code{2024}.}
+
+\item{seed2}{Seed for opponent assignment (\code{\link[=f_select_team_for_series]{f_select_team_for_series()}}).
+Note that this seed determines \emph{which} teams appear in the season.}
+
+\item{num_games}{Number of home games; defaults to \code{81} (the season frame is
+built for 81 games).}
+
+\item{seed3}{Seed for promotion assignment (\code{\link[=f_assign_promotion]{f_assign_promotion()}}).}
+
+\item{num_bbh}{Number of bobblehead-giveaway games.}
+
+\item{num_con}{Number of concert games.}
+
+\item{num_oth}{Number of other promotional games.}
+
+\item{seed4}{Seed for the attendance multipliers (\code{\link[=f_attend_coefficient]{f_attend_coefficient()}}).}
+
+\item{seed5}{Seed for the baseline ticket-sales draw.}
+
+\item{mean_sales}{Mean of the baseline per-game ticket-sales distribution.}
+
+\item{sd_sales}{Standard deviation of that distribution.}
 }
+\value{
+A data frame of \code{num_games} rows with the columns documented in
+\link{season_data}: \code{gameNumber}, \code{team}, \code{date} (Date), \code{dayOfWeek}, \code{month},
+\code{weekEnd}, \code{schoolInOut}, \code{daysSinceLastGame}, \code{openingDay}, \code{promotion},
+\code{ticketSales} (capped at 45,000 by \code{\link[=f_constrain_sales]{f_constrain_sales()}}) and \code{season}.
+}
+\description{
+Assembles a complete season schedule with simulated ticket sales by combining
+the season-simulation helpers: it draws dates, assigns opponents, derives the
+calendar fields, scatters promotions, computes a per-game attendance
+multiplier and applies it to a baseline drawn from a normal distribution. The
+result has the same shape as the bundled \link{season_data}.
+}
+\section{Bug fixes}{
+
+\code{dayOfWeek} and \code{month} are now returned as readable labels (e.g. \code{"Sun"},
+\code{"Mar"}) instead of the integer factor codes the old \code{unlist()} produced, and
+\code{date} is a proper \code{Date} column.
+}
+
+\examples{
+season <- f_build_season(seed1 = 3000, season_year = 2024, seed2 = 714,
+                         num_games = 81, seed3 = 366, num_bbh = 5,
+                         num_con = 3, num_oth = 5, seed4 = 309, seed5 = 25,
+                         mean_sales = 29000, sd_sales = 3500)
+head(season)
+
+}
+\seealso{
+Other season_simulation: 
+\code{\link{f_apply_static_fields}()},
+\code{\link{f_assign_promotion}()},
+\code{\link{f_attend_coefficient}()},
+\code{\link{f_constrain_sales}()},
+\code{\link{f_create_dates}()},
+\code{\link{f_create_season_frame}()},
+\code{\link{f_days_since_last_game}()},
+\code{\link{f_select_team_for_series}()}
+}
+\concept{season_simulation}
