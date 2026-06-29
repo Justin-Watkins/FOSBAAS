@@ -1,6 +1,6 @@
 Package: FOSBAAS
 Type: Package
-Version: 0.2.0
+Version: 0.2.1
 Date: 2026-06-29
 Title: Functions and Data for Fundamentals of Sports Business Analytics and Strategy
 Authors@R: c(person("Justin", "Watkins", role = c("aut", "cre"),

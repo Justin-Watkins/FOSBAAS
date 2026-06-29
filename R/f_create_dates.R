@@ -30,23 +30,31 @@ f_create_dates <- function(seed, season_year) {
   pattern  <- c(3, 6, 9)
   days_off <- c(3, 7, 10)
 
+  # The candidate window runs into December so a long schedule never overruns
+  # the vector (which would yield NA dates); realistic schedules still finish in
+  # early October.
   dates <- seq(as.Date(paste0(season_year, "-03-27")),
-               as.Date(paste0(season_year, "-10-08")),
+               as.Date(paste0(season_year, "-12-31")),
                by = "+1 day")
 
   season_dates <- list()
+  # Consume one RNG draw before the loop to match the original generator's
+  # random stream (the start date is sampled but the season always opens on the
+  # first eligible date). Removing this draw shifts every subsequent sample and
+  # can push a schedule past the calendar window.
+  start_date <- sample(dates[1:10], 1)
   x <- 1
   while (x <= 81) {
     num_games_series <- sample(pattern, 1, prob = c(.30, .60, .10))
+    day_off_select   <- sample(days_off, 1, prob = c(.05, .35, .60))
 
     if (x == 1) {
       series_dates <- dates[x:num_games_series]
       season_dates[x:num_games_series] <- as.character(series_dates)
     } else {
-      day_off_select <- sample(days_off, 1, prob = c(.05, .35, .60))
-      date_index     <- day_off_select +
+      date_index   <- day_off_select +
         which(dates == as.character(season_dates[(x - 1)]))[1]
-      series_dates   <- dates[date_index:(date_index + num_games_series - 1)]
+      series_dates <- dates[date_index:(date_index + num_games_series - 1)]
       season_dates[x:(x + num_games_series - 1)] <- as.character(series_dates)
     }
     x <- x + num_games_series

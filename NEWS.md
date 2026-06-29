@@ -1,3 +1,14 @@
+# FOSBAAS 0.2.1
+
+* `f_create_dates()` regression fix: the 0.2.0 cleanup dropped a `sample()` draw
+  and moved another, which shifted the random stream so some seeds (e.g. the
+  ones used in the book's pricing chapter) ran a schedule past the calendar
+  window and produced `NA` dates. That surfaced downstream as
+  "missing value where TRUE/FALSE needed" in `f_attend_coefficient()` via
+  `f_build_season()`. Restored the original draw sequence (so tuned seeds
+  reproduce their schedules) and extended the candidate date window into
+  December as a guard against overruns.
+
 # FOSBAAS 0.2.0
 
 Full rewrite of the package source and documentation.
